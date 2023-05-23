@@ -4,7 +4,7 @@
 PROJECT_NAME ?= provider-datadog
 PROJECT_REPO ?= github.com/ok-amba/$(PROJECT_NAME)
 
-export TERRAFORM_VERSION ?= 1.3.3
+export TERRAFORM_VERSION ?= 1.4.6
 
 export TERRAFORM_PROVIDER_SOURCE := DataDog/datadog
 export TERRAFORM_PROVIDER_REPO ?= https://github.com/DataDog/terraform-provider-datadog
