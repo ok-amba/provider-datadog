@@ -5,18 +5,18 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.11.3
   creationTimestamp: null
-  name: resources.null.template.upbound.io
+  name: dashboardjsons.dashboard.datadog.upbound.io
 spec:
-  group: null.template.upbound.io
+  group: dashboard.datadog.upbound.io
   names:
     categories:
     - crossplane
     - managed
-    - template
-    kind: Resource
-    listKind: ResourceList
-    plural: resources
-    singular: resource
+    - datadog
+    kind: DashboardJSON
+    listKind: DashboardJSONList
+    plural: dashboardjsons
+    singular: dashboardjson
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -35,7 +35,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Resource is the Schema for the Resources API. <no value>
+        description: DashboardJSON is the Schema for the DashboardJSONs API. <no value>
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -50,7 +50,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: ResourceSpec defines the desired state of Resource
+            description: DashboardJSONSpec defines the desired state of DashboardJSON
             properties:
               deletionPolicy:
                 default: Delete
@@ -67,13 +67,18 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  triggers:
-                    additionalProperties:
-                      type: string
-                    description: A map of arbitrary strings that, when changed, will
-                      force the null resource to be replaced, re-running any associated
-                      provisioners.
-                    type: object
+                  dashboard:
+                    description: The JSON formatted definition of the Dashboard.
+                    type: string
+                  dashboardLists:
+                    description: The list of dashboard lists this dashboard belongs
+                      to.
+                    items:
+                      type: number
+                    type: array
+                  url:
+                    description: The URL of the dashboard.
+                    type: string
                 type: object
               managementPolicy:
                 default: FullControl
@@ -261,20 +266,34 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-validations:
+            - message: dashboard is a required parameter
+              rule: self.managementPolicy == 'ObserveOnly' || has(self.forProvider.dashboard)
           status:
-            description: ResourceStatus defines the observed state of Resource.
+            description: DashboardJSONStatus defines the observed state of DashboardJSON.
             properties:
               atProvider:
                 properties:
+                  dashboard:
+                    description: The JSON formatted definition of the Dashboard.
+                    type: string
+                  dashboardLists:
+                    description: The list of dashboard lists this dashboard belongs
+                      to.
+                    items:
+                      type: number
+                    type: array
+                  dashboardListsRemoved:
+                    description: The list of dashboard lists this dashboard should
+                      be removed from. Internal only.
+                    items:
+                      type: number
+                    type: array
                   id:
                     type: string
-                  triggers:
-                    additionalProperties:
-                      type: string
-                    description: A map of arbitrary strings that, when changed, will
-                      force the null resource to be replaced, re-running any associated
-                      provisioners.
-                    type: object
+                  url:
+                    description: The URL of the dashboard.
+                    type: string
                 type: object
               conditions:
                 description: Conditions of the resource.
