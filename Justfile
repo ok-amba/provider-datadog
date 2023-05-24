@@ -10,7 +10,7 @@ cluster-up: && load-crds install-crossplane
   sleep 5
   kubectl wait --namespace kube-system --for=condition=ready pod --selector="tier=control-plane" --timeout=180s
   kubectl create namespace crossplane-system
-  kubectl apply -f ./datadog-secret.yaml
+  kubectl --namespace crossplane-system apply -f ./datadog-secret.yaml
 
 # Bring down the Kind cluster
 cluster-down:
@@ -25,8 +25,9 @@ load-crds:
 
 # Remove cluster CRDs
 rm-crds:
-  kubectl delete -f ./examples/providerconfig/providerconfig.yaml
-  kubectl delete -f ./package/crds
+  -kubectl patch providerconfig default -p '{"metadata":{"finalizers": []}}' --type=merge
+  -kubectl delete -f ./examples/providerconfig/providerconfig.yaml
+  -kubectl delete -f ./package/crds
 
 # Reload cluster CRDs
 reload-crds: rm-crds && load-crds
