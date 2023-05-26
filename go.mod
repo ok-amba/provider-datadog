@@ -1,4 +1,4 @@
-module github.com/upbound/upjet-provider-template
+module github.com/ok-amba/provider-datadog
 
 go 1.19
 
