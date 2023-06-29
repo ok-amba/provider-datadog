@@ -1,0 +1,20 @@
+# Terraform Docs
+# https://registry.terraform.io/providers/DataDog/datadog/latest/docs/resources/authn_mapping
+
+apiVersion: datadog.upbound.io/v1alpha1
+kind: AuthnMapping
+metadata:
+  name: authn-name
+spec:
+  forProvider:
+    # Identity provider key
+    key: member-of
+
+    # The ID of a role to attach to all users with the corresponding key and value
+    role: data.datadog_role.ro_role.id
+
+    # Identity provider value
+    value: Development
+
+  providerConfigRef:
+    name: default

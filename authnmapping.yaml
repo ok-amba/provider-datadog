@@ -1,0 +1,21 @@
+# Terraform Docs
+# https://registry.terraform.io/providers/DataDog/datadog/latest/docs/resources/authn_mapping
+
+apiVersion: datadog.upbound.io/v1alpha1
+kind: AuthnMapping
+metadata:
+  name: kath-test
+spec:
+  forProvider:
+      # Identity provider key
+    key: "Memboer-of"
+
+    # The ID of a role to attach to all users with the corresponding key and value
+    role: "d34ebd5a-238b-11ed-a233-da7ad0900005"
+
+    # Identity provider value
+    value: "Development"
+
+  providerConfigRef:
+    name: default
+

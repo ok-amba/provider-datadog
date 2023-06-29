@@ -18,7 +18,7 @@ import (
 	"github.com/upbound/upjet/pkg/terraform"
 	ctrl "sigs.k8s.io/controller-runtime"
 
-	v1alpha1 "github.com/ok-amba/provider-datadog/apis/authnmapping/v1alpha1"
+	v1alpha1 "github.com/ok-amba/provider-datadog/apis/datadog/v1alpha1"
 	features "github.com/ok-amba/provider-datadog/internal/features"
 )
 

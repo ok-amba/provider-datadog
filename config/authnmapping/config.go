@@ -6,6 +6,6 @@ import "github.com/upbound/upjet/pkg/config"
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("datadog_authn_mapping", func(r *config.Resource) {
 		r.Kind = "AuthnMapping"
-		r.ShortGroup = "authnmapping"
+		r.ShortGroup = ""
 	})
 }
