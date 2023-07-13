@@ -11,3 +11,6 @@ cover.out
 .idea/
 kubeconfig
 datadog-secret.yaml
+
+dashboard.yaml
+authnmapping.yaml
