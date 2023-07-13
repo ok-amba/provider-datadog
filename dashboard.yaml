@@ -1,0 +1,17 @@
+apiVersion: dashboard.datadog.upbound.io/v1alpha1
+kind: Dashboard
+metadata:
+  name: kath-dashboard-test
+spec:
+  forProvider:
+    layoutType: ordered
+
+    title: kath-test
+
+    widget:
+      - alertGraphDefinition:
+          - alertId: "11760950"
+            vizType: timeseries
+
+  providerConfigRef:
+    name: default
