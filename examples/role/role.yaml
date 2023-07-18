@@ -1,0 +1,23 @@
+# Terraform docs
+# https://registry.terraform.io/providers/DataDog/datadog/latest/docs/resources/role
+
+apiVersion: datadog.upbound.io/v1alpha1
+kind: Role
+metadata:
+  name: kath-test
+spec:
+  forProvider:
+    # Name of the role
+    name: kath-crossplane-test
+
+    # Set of objects containing the permission ID and the name of the permissions granted to this role
+    # Permission ID can be found by making a GET request to the following URI: https://api.datadoghq.eu/api/v2/permissions
+    # More info on the role API can be found here: https://docs.datadoghq.com/api/latest/roles
+    # A comprehensive list of all permissions can be found here: https://docs.datadoghq.com/account_management/rbac/permissions/
+    permission:
+      - id: datadog-permission-ID
+      - id: another-permission-ID
+
+  providerConfigRef:
+    name: default
+

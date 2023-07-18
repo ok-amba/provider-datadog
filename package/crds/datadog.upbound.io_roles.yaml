@@ -5,18 +5,18 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.11.3
   creationTimestamp: null
-  name: dashboardjsons.dashboard.datadog.upbound.io
+  name: roles.datadog.upbound.io
 spec:
-  group: dashboard.datadog.upbound.io
+  group: datadog.upbound.io
   names:
     categories:
     - crossplane
     - managed
     - datadog
-    kind: DashboardJSON
-    listKind: DashboardJSONList
-    plural: dashboardjsons
-    singular: dashboardjson
+    kind: Role
+    listKind: RoleList
+    plural: roles
+    singular: role
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -35,7 +35,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: DashboardJSON is the Schema for the DashboardJSONs API. <no value>
+        description: Role is the Schema for the Roles API. <no value>
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -50,7 +50,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: DashboardJSONSpec defines the desired state of DashboardJSON
+            description: RoleSpec defines the desired state of Role
             properties:
               deletionPolicy:
                 default: Delete
@@ -67,18 +67,25 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  dashboard:
-                    description: The JSON formatted definition of the Dashboard.
+                  name:
+                    description: Name of the role.
                     type: string
-                  dashboardLists:
-                    description: A list of dashboard lists this dashboard belongs
-                      to.
+                  permission:
+                    description: Set of objects containing the permission ID and the
+                      name of the permissions granted to this role.
                     items:
-                      type: number
+                      properties:
+                        id:
+                          description: ID of the permission to assign.
+                          type: string
+                      required:
+                      - id
+                      type: object
                     type: array
-                  url:
-                    description: The URL of the dashboard.
-                    type: string
+                  validate:
+                    description: If set to `false`, skip the validation call done
+                      during plan.
+                    type: boolean
                 type: object
               managementPolicy:
                 default: FullControl
@@ -267,33 +274,38 @@ spec:
             - forProvider
             type: object
             x-kubernetes-validations:
-            - message: dashboard is a required parameter
-              rule: self.managementPolicy == 'ObserveOnly' || has(self.forProvider.dashboard)
+            - message: name is a required parameter
+              rule: self.managementPolicy == 'ObserveOnly' || has(self.forProvider.name)
           status:
-            description: DashboardJSONStatus defines the observed state of DashboardJSON.
+            description: RoleStatus defines the observed state of Role.
             properties:
               atProvider:
                 properties:
-                  dashboard:
-                    description: The JSON formatted definition of the Dashboard.
-                    type: string
-                  dashboardLists:
-                    description: A list of dashboard lists this dashboard belongs
-                      to.
-                    items:
-                      type: number
-                    type: array
-                  dashboardListsRemoved:
-                    description: The list of dashboard lists this dashboard should
-                      be removed from. Internal only.
-                    items:
-                      type: number
-                    type: array
                   id:
                     type: string
-                  url:
-                    description: The URL of the dashboard.
+                  name:
+                    description: Name of the role.
                     type: string
+                  permission:
+                    description: Set of objects containing the permission ID and the
+                      name of the permissions granted to this role.
+                    items:
+                      properties:
+                        id:
+                          description: ID of the permission to assign.
+                          type: string
+                        name:
+                          description: Name of the permission.
+                          type: string
+                      type: object
+                    type: array
+                  userCount:
+                    description: Number of users that have this role.
+                    type: number
+                  validate:
+                    description: If set to `false`, skip the validation call done
+                      during plan.
+                    type: boolean
                 type: object
               conditions:
                 description: Conditions of the resource.

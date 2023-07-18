@@ -18,7 +18,7 @@ type DashboardJSONObservation struct {
 	// The JSON formatted definition of the Dashboard.
 	Dashboard *string `json:"dashboard,omitempty" tf:"dashboard,omitempty"`
 
-	// The list of dashboard lists this dashboard belongs to.
+	// A list of dashboard lists this dashboard belongs to.
 	DashboardLists []*float64 `json:"dashboardLists,omitempty" tf:"dashboard_lists,omitempty"`
 
 	// The list of dashboard lists this dashboard should be removed from. Internal only.
@@ -36,7 +36,7 @@ type DashboardJSONParameters struct {
 	// +kubebuilder:validation:Optional
 	Dashboard *string `json:"dashboard,omitempty" tf:"dashboard,omitempty"`
 
-	// The list of dashboard lists this dashboard belongs to.
+	// A list of dashboard lists this dashboard belongs to.
 	// +kubebuilder:validation:Optional
 	DashboardLists []*float64 `json:"dashboardLists,omitempty" tf:"dashboard_lists,omitempty"`
 

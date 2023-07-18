@@ -5,18 +5,18 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.11.3
   creationTimestamp: null
-  name: dashboardjsons.dashboard.datadog.upbound.io
+  name: authnmappings.datadog.upbound.io
 spec:
-  group: dashboard.datadog.upbound.io
+  group: datadog.upbound.io
   names:
     categories:
     - crossplane
     - managed
     - datadog
-    kind: DashboardJSON
-    listKind: DashboardJSONList
-    plural: dashboardjsons
-    singular: dashboardjson
+    kind: AuthnMapping
+    listKind: AuthnMappingList
+    plural: authnmappings
+    singular: authnmapping
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -35,7 +35,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: DashboardJSON is the Schema for the DashboardJSONs API. <no value>
+        description: AuthnMapping is the Schema for the AuthnMappings API. <no value>
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -50,7 +50,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: DashboardJSONSpec defines the desired state of DashboardJSON
+            description: AuthnMappingSpec defines the desired state of AuthnMapping
             properties:
               deletionPolicy:
                 default: Delete
@@ -67,17 +67,15 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  dashboard:
-                    description: The JSON formatted definition of the Dashboard.
+                  key:
+                    description: Identity provider key.
                     type: string
-                  dashboardLists:
-                    description: A list of dashboard lists this dashboard belongs
-                      to.
-                    items:
-                      type: number
-                    type: array
-                  url:
-                    description: The URL of the dashboard.
+                  role:
+                    description: The ID of a role to attach to all users with the
+                      corresponding key and value.
+                    type: string
+                  value:
+                    description: Identity provider value.
                     type: string
                 type: object
               managementPolicy:
@@ -267,32 +265,28 @@ spec:
             - forProvider
             type: object
             x-kubernetes-validations:
-            - message: dashboard is a required parameter
-              rule: self.managementPolicy == 'ObserveOnly' || has(self.forProvider.dashboard)
+            - message: key is a required parameter
+              rule: self.managementPolicy == 'ObserveOnly' || has(self.forProvider.key)
+            - message: role is a required parameter
+              rule: self.managementPolicy == 'ObserveOnly' || has(self.forProvider.role)
+            - message: value is a required parameter
+              rule: self.managementPolicy == 'ObserveOnly' || has(self.forProvider.value)
           status:
-            description: DashboardJSONStatus defines the observed state of DashboardJSON.
+            description: AuthnMappingStatus defines the observed state of AuthnMapping.
             properties:
               atProvider:
                 properties:
-                  dashboard:
-                    description: The JSON formatted definition of the Dashboard.
-                    type: string
-                  dashboardLists:
-                    description: A list of dashboard lists this dashboard belongs
-                      to.
-                    items:
-                      type: number
-                    type: array
-                  dashboardListsRemoved:
-                    description: The list of dashboard lists this dashboard should
-                      be removed from. Internal only.
-                    items:
-                      type: number
-                    type: array
                   id:
                     type: string
-                  url:
-                    description: The URL of the dashboard.
+                  key:
+                    description: Identity provider key.
+                    type: string
+                  role:
+                    description: The ID of a role to attach to all users with the
+                      corresponding key and value.
+                    type: string
+                  value:
+                    description: Identity provider value.
                     type: string
                 type: object
               conditions:
