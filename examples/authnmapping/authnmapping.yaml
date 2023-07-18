@@ -1,0 +1,24 @@
+# Terraform Docs
+# https://registry.terraform.io/providers/DataDog/datadog/latest/docs/resources/authn_mapping
+
+apiVersion: datadog.upbound.io/v1alpha1
+kind: AuthnMapping
+metadata:
+  name: authn-name
+spec:
+  forProvider:
+    # Identity provider key
+    # The key is used by the identity provider to point to a specific resource, for example to point to an Azure AD group you would set this to http://schemas.microsoft.com/ws/2008/06/identity/claims/groups
+    key: member-of
+
+    # The ID of a role to attach to all users with the corresponding key and value
+    # The ID of the role can be found in the URI by going to the role in the Datadog UI.
+    role: Datadog-role-ID
+
+    # Identity provider value
+    # This is the ID of the group from your identity provider
+    # You can find the group ID in azure by going into the web gui and looking for the groups object ID
+    value: Development
+
+  providerConfigRef:
+    name: default
