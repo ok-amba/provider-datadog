@@ -12,6 +12,7 @@ import (
 	dashboard "github.com/ok-amba/provider-datadog/internal/controller/dashboard/dashboard"
 	dashboardjson "github.com/ok-amba/provider-datadog/internal/controller/dashboard/dashboardjson"
 	authnmapping "github.com/ok-amba/provider-datadog/internal/controller/datadog/authnmapping"
+	role "github.com/ok-amba/provider-datadog/internal/controller/datadog/role"
 	providerconfig "github.com/ok-amba/provider-datadog/internal/controller/providerconfig"
 )
 
@@ -22,6 +23,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		dashboard.Setup,
 		dashboardjson.Setup,
 		authnmapping.Setup,
+		role.Setup,
 		providerconfig.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {
