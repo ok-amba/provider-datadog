@@ -71,7 +71,7 @@ spec:
                     description: The JSON formatted definition of the Dashboard.
                     type: string
                   dashboardLists:
-                    description: The list of dashboard lists this dashboard belongs
+                    description: A list of dashboard lists this dashboard belongs
                       to.
                     items:
                       type: number
@@ -278,7 +278,7 @@ spec:
                     description: The JSON formatted definition of the Dashboard.
                     type: string
                   dashboardLists:
-                    description: The list of dashboard lists this dashboard belongs
+                    description: A list of dashboard lists this dashboard belongs
                       to.
                     items:
                       type: number

@@ -966,6 +966,44 @@ spec:
                                               - name
                                               type: object
                                             type: array
+                                          sloQuery:
+                                            description: The slo query using formulas
+                                              and functions.
+                                            items:
+                                              properties:
+                                                dataSource:
+                                                  description: The data source for
+                                                    slo queries. Valid values are
+                                                    `slo`.
+                                                  type: string
+                                                groupMode:
+                                                  description: Group mode to query
+                                                    measures. Valid values are `overall`,
+                                                    `components`.
+                                                  type: string
+                                                measure:
+                                                  description: SLO measures queries.
+                                                    Valid values are `good_events`,
+                                                    `bad_events`, `slo_status`, `error_budget_remaining`,
+                                                    `burn_rate`, `error_budget_burndown`.
+                                                  type: string
+                                                name:
+                                                  description: The name of query for
+                                                    use in formulas.
+                                                  type: string
+                                                sloId:
+                                                  description: ID of an SLO to query.
+                                                  type: string
+                                                sloQueryType:
+                                                  description: type of the SLO to
+                                                    query. Valid values are `metric`.
+                                                  type: string
+                                              required:
+                                              - dataSource
+                                              - measure
+                                              - sloId
+                                              type: object
+                                            type: array
                                         type: object
                                       type: array
                                     rumQuery:
@@ -2394,6 +2432,44 @@ spec:
                                               - name
                                               type: object
                                             type: array
+                                          sloQuery:
+                                            description: The slo query using formulas
+                                              and functions.
+                                            items:
+                                              properties:
+                                                dataSource:
+                                                  description: The data source for
+                                                    slo queries. Valid values are
+                                                    `slo`.
+                                                  type: string
+                                                groupMode:
+                                                  description: Group mode to query
+                                                    measures. Valid values are `overall`,
+                                                    `components`.
+                                                  type: string
+                                                measure:
+                                                  description: SLO measures queries.
+                                                    Valid values are `good_events`,
+                                                    `bad_events`, `slo_status`, `error_budget_remaining`,
+                                                    `burn_rate`, `error_budget_burndown`.
+                                                  type: string
+                                                name:
+                                                  description: The name of query for
+                                                    use in formulas.
+                                                  type: string
+                                                sloId:
+                                                  description: ID of an SLO to query.
+                                                  type: string
+                                                sloQueryType:
+                                                  description: type of the SLO to
+                                                    query. Valid values are `metric`.
+                                                  type: string
+                                              required:
+                                              - dataSource
+                                              - measure
+                                              - sloId
+                                              type: object
+                                            type: array
                                         type: object
                                       type: array
                                     rumQuery:
@@ -3491,6 +3567,50 @@ spec:
                                                           - dataSource
                                                           - metric
                                                           - name
+                                                          type: object
+                                                        type: array
+                                                      sloQuery:
+                                                        description: The slo query
+                                                          using formulas and functions.
+                                                        items:
+                                                          properties:
+                                                            dataSource:
+                                                              description: The data
+                                                                source for slo queries.
+                                                                Valid values are `slo`.
+                                                              type: string
+                                                            groupMode:
+                                                              description: Group mode
+                                                                to query measures.
+                                                                Valid values are `overall`,
+                                                                `components`.
+                                                              type: string
+                                                            measure:
+                                                              description: SLO measures
+                                                                queries. Valid values
+                                                                are `good_events`,
+                                                                `bad_events`, `slo_status`,
+                                                                `error_budget_remaining`,
+                                                                `burn_rate`, `error_budget_burndown`.
+                                                              type: string
+                                                            name:
+                                                              description: The name
+                                                                of query for use in
+                                                                formulas.
+                                                              type: string
+                                                            sloId:
+                                                              description: ID of an
+                                                                SLO to query.
+                                                              type: string
+                                                            sloQueryType:
+                                                              description: type of
+                                                                the SLO to query.
+                                                                Valid values are `metric`.
+                                                              type: string
+                                                          required:
+                                                          - dataSource
+                                                          - measure
+                                                          - sloId
                                                           type: object
                                                         type: array
                                                     type: object
@@ -5173,6 +5293,50 @@ spec:
                                                           - dataSource
                                                           - metric
                                                           - name
+                                                          type: object
+                                                        type: array
+                                                      sloQuery:
+                                                        description: The slo query
+                                                          using formulas and functions.
+                                                        items:
+                                                          properties:
+                                                            dataSource:
+                                                              description: The data
+                                                                source for slo queries.
+                                                                Valid values are `slo`.
+                                                              type: string
+                                                            groupMode:
+                                                              description: Group mode
+                                                                to query measures.
+                                                                Valid values are `overall`,
+                                                                `components`.
+                                                              type: string
+                                                            measure:
+                                                              description: SLO measures
+                                                                queries. Valid values
+                                                                are `good_events`,
+                                                                `bad_events`, `slo_status`,
+                                                                `error_budget_remaining`,
+                                                                `burn_rate`, `error_budget_burndown`.
+                                                              type: string
+                                                            name:
+                                                              description: The name
+                                                                of query for use in
+                                                                formulas.
+                                                              type: string
+                                                            sloId:
+                                                              description: ID of an
+                                                                SLO to query.
+                                                              type: string
+                                                            sloQueryType:
+                                                              description: type of
+                                                                the SLO to query.
+                                                                Valid values are `metric`.
+                                                              type: string
+                                                          required:
+                                                          - dataSource
+                                                          - measure
+                                                          - sloId
                                                           type: object
                                                         type: array
                                                     type: object
@@ -7229,6 +7393,28 @@ spec:
                                                       queryString:
                                                         description: Widget query.
                                                         type: string
+                                                      sort:
+                                                        description: 'The facet and
+                                                          order to sort the data,
+                                                          for example: `{"column":
+                                                          "time", "order": "desc"}`.'
+                                                        items:
+                                                          properties:
+                                                            column:
+                                                              description: The facet
+                                                                path for the column.
+                                                              type: string
+                                                            order:
+                                                              description: Widget
+                                                                sorting methods. Valid
+                                                                values are `asc`,
+                                                                `desc`.
+                                                              type: string
+                                                          required:
+                                                          - column
+                                                          - order
+                                                          type: object
+                                                        type: array
                                                       storage:
                                                         description: Storage location
                                                           (private beta).
@@ -8436,6 +8622,50 @@ spec:
                                                           - dataSource
                                                           - metric
                                                           - name
+                                                          type: object
+                                                        type: array
+                                                      sloQuery:
+                                                        description: The slo query
+                                                          using formulas and functions.
+                                                        items:
+                                                          properties:
+                                                            dataSource:
+                                                              description: The data
+                                                                source for slo queries.
+                                                                Valid values are `slo`.
+                                                              type: string
+                                                            groupMode:
+                                                              description: Group mode
+                                                                to query measures.
+                                                                Valid values are `overall`,
+                                                                `components`.
+                                                              type: string
+                                                            measure:
+                                                              description: SLO measures
+                                                                queries. Valid values
+                                                                are `good_events`,
+                                                                `bad_events`, `slo_status`,
+                                                                `error_budget_remaining`,
+                                                                `burn_rate`, `error_budget_burndown`.
+                                                              type: string
+                                                            name:
+                                                              description: The name
+                                                                of query for use in
+                                                                formulas.
+                                                              type: string
+                                                            sloId:
+                                                              description: ID of an
+                                                                SLO to query.
+                                                              type: string
+                                                            sloQueryType:
+                                                              description: type of
+                                                                the SLO to query.
+                                                                Valid values are `metric`.
+                                                              type: string
+                                                          required:
+                                                          - dataSource
+                                                          - measure
+                                                          - sloId
                                                           type: object
                                                         type: array
                                                     type: object
@@ -9696,6 +9926,50 @@ spec:
                                                           - name
                                                           type: object
                                                         type: array
+                                                      sloQuery:
+                                                        description: The slo query
+                                                          using formulas and functions.
+                                                        items:
+                                                          properties:
+                                                            dataSource:
+                                                              description: The data
+                                                                source for slo queries.
+                                                                Valid values are `slo`.
+                                                              type: string
+                                                            groupMode:
+                                                              description: Group mode
+                                                                to query measures.
+                                                                Valid values are `overall`,
+                                                                `components`.
+                                                              type: string
+                                                            measure:
+                                                              description: SLO measures
+                                                                queries. Valid values
+                                                                are `good_events`,
+                                                                `bad_events`, `slo_status`,
+                                                                `error_budget_remaining`,
+                                                                `burn_rate`, `error_budget_burndown`.
+                                                              type: string
+                                                            name:
+                                                              description: The name
+                                                                of query for use in
+                                                                formulas.
+                                                              type: string
+                                                            sloId:
+                                                              description: ID of an
+                                                                SLO to query.
+                                                              type: string
+                                                            sloQueryType:
+                                                              description: type of
+                                                                the SLO to query.
+                                                                Valid values are `metric`.
+                                                              type: string
+                                                          required:
+                                                          - dataSource
+                                                          - measure
+                                                          - sloId
+                                                          type: object
+                                                        type: array
                                                     type: object
                                                   type: array
                                                 rumQuery:
@@ -9987,8 +10261,7 @@ spec:
                                       type: array
                                     runWorkflowDefinition:
                                       description: The definition for a Run Workflow
-                                        widget. **NOTE:** Currently in private beta.
-                                        To request access, contact Support at support@datadoghq.com.
+                                        widget.
                                       items:
                                         properties:
                                           customLink:
@@ -10603,6 +10876,59 @@ spec:
                                                                 - dataSource
                                                                 - metric
                                                                 - name
+                                                                type: object
+                                                              type: array
+                                                            sloQuery:
+                                                              description: The slo
+                                                                query using formulas
+                                                                and functions.
+                                                              items:
+                                                                properties:
+                                                                  dataSource:
+                                                                    description: The
+                                                                      data source
+                                                                      for slo queries.
+                                                                      Valid values
+                                                                      are `slo`.
+                                                                    type: string
+                                                                  groupMode:
+                                                                    description: Group
+                                                                      mode to query
+                                                                      measures. Valid
+                                                                      values are `overall`,
+                                                                      `components`.
+                                                                    type: string
+                                                                  measure:
+                                                                    description: SLO
+                                                                      measures queries.
+                                                                      Valid values
+                                                                      are `good_events`,
+                                                                      `bad_events`,
+                                                                      `slo_status`,
+                                                                      `error_budget_remaining`,
+                                                                      `burn_rate`,
+                                                                      `error_budget_burndown`.
+                                                                    type: string
+                                                                  name:
+                                                                    description: The
+                                                                      name of query
+                                                                      for use in formulas.
+                                                                    type: string
+                                                                  sloId:
+                                                                    description: ID
+                                                                      of an SLO to
+                                                                      query.
+                                                                    type: string
+                                                                  sloQueryType:
+                                                                    description: type
+                                                                      of the SLO to
+                                                                      query. Valid
+                                                                      values are `metric`.
+                                                                    type: string
+                                                                required:
+                                                                - dataSource
+                                                                - measure
+                                                                - sloId
                                                                 type: object
                                                               type: array
                                                           type: object
@@ -13037,6 +13363,50 @@ spec:
                                                           - name
                                                           type: object
                                                         type: array
+                                                      sloQuery:
+                                                        description: The slo query
+                                                          using formulas and functions.
+                                                        items:
+                                                          properties:
+                                                            dataSource:
+                                                              description: The data
+                                                                source for slo queries.
+                                                                Valid values are `slo`.
+                                                              type: string
+                                                            groupMode:
+                                                              description: Group mode
+                                                                to query measures.
+                                                                Valid values are `overall`,
+                                                                `components`.
+                                                              type: string
+                                                            measure:
+                                                              description: SLO measures
+                                                                queries. Valid values
+                                                                are `good_events`,
+                                                                `bad_events`, `slo_status`,
+                                                                `error_budget_remaining`,
+                                                                `burn_rate`, `error_budget_burndown`.
+                                                              type: string
+                                                            name:
+                                                              description: The name
+                                                                of query for use in
+                                                                formulas.
+                                                              type: string
+                                                            sloId:
+                                                              description: ID of an
+                                                                SLO to query.
+                                                              type: string
+                                                            sloQueryType:
+                                                              description: type of
+                                                                the SLO to query.
+                                                                Valid values are `metric`.
+                                                              type: string
+                                                          required:
+                                                          - dataSource
+                                                          - measure
+                                                          - sloId
+                                                          type: object
+                                                        type: array
                                                     type: object
                                                   type: array
                                                 rumQuery:
@@ -14415,6 +14785,50 @@ spec:
                                                           - name
                                                           type: object
                                                         type: array
+                                                      sloQuery:
+                                                        description: The slo query
+                                                          using formulas and functions.
+                                                        items:
+                                                          properties:
+                                                            dataSource:
+                                                              description: The data
+                                                                source for slo queries.
+                                                                Valid values are `slo`.
+                                                              type: string
+                                                            groupMode:
+                                                              description: Group mode
+                                                                to query measures.
+                                                                Valid values are `overall`,
+                                                                `components`.
+                                                              type: string
+                                                            measure:
+                                                              description: SLO measures
+                                                                queries. Valid values
+                                                                are `good_events`,
+                                                                `bad_events`, `slo_status`,
+                                                                `error_budget_remaining`,
+                                                                `burn_rate`, `error_budget_burndown`.
+                                                              type: string
+                                                            name:
+                                                              description: The name
+                                                                of query for use in
+                                                                formulas.
+                                                              type: string
+                                                            sloId:
+                                                              description: ID of an
+                                                                SLO to query.
+                                                              type: string
+                                                            sloQueryType:
+                                                              description: type of
+                                                                the SLO to query.
+                                                                Valid values are `metric`.
+                                                              type: string
+                                                          required:
+                                                          - dataSource
+                                                          - measure
+                                                          - sloId
+                                                          type: object
+                                                        type: array
                                                     type: object
                                                   type: array
                                                 rumQuery:
@@ -15744,6 +16158,50 @@ spec:
                                                           - name
                                                           type: object
                                                         type: array
+                                                      sloQuery:
+                                                        description: The slo query
+                                                          using formulas and functions.
+                                                        items:
+                                                          properties:
+                                                            dataSource:
+                                                              description: The data
+                                                                source for slo queries.
+                                                                Valid values are `slo`.
+                                                              type: string
+                                                            groupMode:
+                                                              description: Group mode
+                                                                to query measures.
+                                                                Valid values are `overall`,
+                                                                `components`.
+                                                              type: string
+                                                            measure:
+                                                              description: SLO measures
+                                                                queries. Valid values
+                                                                are `good_events`,
+                                                                `bad_events`, `slo_status`,
+                                                                `error_budget_remaining`,
+                                                                `burn_rate`, `error_budget_burndown`.
+                                                              type: string
+                                                            name:
+                                                              description: The name
+                                                                of query for use in
+                                                                formulas.
+                                                              type: string
+                                                            sloId:
+                                                              description: ID of an
+                                                                SLO to query.
+                                                              type: string
+                                                            sloQueryType:
+                                                              description: type of
+                                                                the SLO to query.
+                                                                Valid values are `metric`.
+                                                              type: string
+                                                          required:
+                                                          - dataSource
+                                                          - measure
+                                                          - sloId
+                                                          type: object
+                                                        type: array
                                                     type: object
                                                   type: array
                                                 rumQuery:
@@ -16694,6 +17152,50 @@ spec:
                                                           - dataSource
                                                           - metric
                                                           - name
+                                                          type: object
+                                                        type: array
+                                                      sloQuery:
+                                                        description: The slo query
+                                                          using formulas and functions.
+                                                        items:
+                                                          properties:
+                                                            dataSource:
+                                                              description: The data
+                                                                source for slo queries.
+                                                                Valid values are `slo`.
+                                                              type: string
+                                                            groupMode:
+                                                              description: Group mode
+                                                                to query measures.
+                                                                Valid values are `overall`,
+                                                                `components`.
+                                                              type: string
+                                                            measure:
+                                                              description: SLO measures
+                                                                queries. Valid values
+                                                                are `good_events`,
+                                                                `bad_events`, `slo_status`,
+                                                                `error_budget_remaining`,
+                                                                `burn_rate`, `error_budget_burndown`.
+                                                              type: string
+                                                            name:
+                                                              description: The name
+                                                                of query for use in
+                                                                formulas.
+                                                              type: string
+                                                            sloId:
+                                                              description: ID of an
+                                                                SLO to query.
+                                                              type: string
+                                                            sloQueryType:
+                                                              description: type of
+                                                                the SLO to query.
+                                                                Valid values are `metric`.
+                                                              type: string
+                                                          required:
+                                                          - dataSource
+                                                          - measure
+                                                          - sloId
                                                           type: object
                                                         type: array
                                                     type: object
@@ -18355,6 +18857,25 @@ spec:
                                           queryString:
                                             description: Widget query.
                                             type: string
+                                          sort:
+                                            description: 'The facet and order to sort
+                                              the data, for example: `{"column": "time",
+                                              "order": "desc"}`.'
+                                            items:
+                                              properties:
+                                                column:
+                                                  description: The facet path for
+                                                    the column.
+                                                  type: string
+                                                order:
+                                                  description: Widget sorting methods.
+                                                    Valid values are `asc`, `desc`.
+                                                  type: string
+                                              required:
+                                              - column
+                                              - order
+                                              type: object
+                                            type: array
                                           storage:
                                             description: Storage location (private
                                               beta).
@@ -19377,6 +19898,44 @@ spec:
                                               - dataSource
                                               - metric
                                               - name
+                                              type: object
+                                            type: array
+                                          sloQuery:
+                                            description: The slo query using formulas
+                                              and functions.
+                                            items:
+                                              properties:
+                                                dataSource:
+                                                  description: The data source for
+                                                    slo queries. Valid values are
+                                                    `slo`.
+                                                  type: string
+                                                groupMode:
+                                                  description: Group mode to query
+                                                    measures. Valid values are `overall`,
+                                                    `components`.
+                                                  type: string
+                                                measure:
+                                                  description: SLO measures queries.
+                                                    Valid values are `good_events`,
+                                                    `bad_events`, `slo_status`, `error_budget_remaining`,
+                                                    `burn_rate`, `error_budget_burndown`.
+                                                  type: string
+                                                name:
+                                                  description: The name of query for
+                                                    use in formulas.
+                                                  type: string
+                                                sloId:
+                                                  description: ID of an SLO to query.
+                                                  type: string
+                                                sloQueryType:
+                                                  description: type of the SLO to
+                                                    query. Valid values are `metric`.
+                                                  type: string
+                                              required:
+                                              - dataSource
+                                              - measure
+                                              - sloId
                                               type: object
                                             type: array
                                         type: object
@@ -20438,6 +20997,44 @@ spec:
                                               - name
                                               type: object
                                             type: array
+                                          sloQuery:
+                                            description: The slo query using formulas
+                                              and functions.
+                                            items:
+                                              properties:
+                                                dataSource:
+                                                  description: The data source for
+                                                    slo queries. Valid values are
+                                                    `slo`.
+                                                  type: string
+                                                groupMode:
+                                                  description: Group mode to query
+                                                    measures. Valid values are `overall`,
+                                                    `components`.
+                                                  type: string
+                                                measure:
+                                                  description: SLO measures queries.
+                                                    Valid values are `good_events`,
+                                                    `bad_events`, `slo_status`, `error_budget_remaining`,
+                                                    `burn_rate`, `error_budget_burndown`.
+                                                  type: string
+                                                name:
+                                                  description: The name of query for
+                                                    use in formulas.
+                                                  type: string
+                                                sloId:
+                                                  description: ID of an SLO to query.
+                                                  type: string
+                                                sloQueryType:
+                                                  description: type of the SLO to
+                                                    query. Valid values are `metric`.
+                                                  type: string
+                                              required:
+                                              - dataSource
+                                              - measure
+                                              - sloId
+                                              type: object
+                                            type: array
                                         type: object
                                       type: array
                                     rumQuery:
@@ -20687,9 +21284,7 @@ spec:
                             type: object
                           type: array
                         runWorkflowDefinition:
-                          description: The definition for a Run Workflow widget. **NOTE:**
-                            Currently in private beta. To request access, contact
-                            Support at support@datadoghq.com.
+                          description: The definition for a Run Workflow widget.
                           items:
                             properties:
                               customLink:
@@ -21163,6 +21758,47 @@ spec:
                                                     - dataSource
                                                     - metric
                                                     - name
+                                                    type: object
+                                                  type: array
+                                                sloQuery:
+                                                  description: The slo query using
+                                                    formulas and functions.
+                                                  items:
+                                                    properties:
+                                                      dataSource:
+                                                        description: The data source
+                                                          for slo queries. Valid values
+                                                          are `slo`.
+                                                        type: string
+                                                      groupMode:
+                                                        description: Group mode to
+                                                          query measures. Valid values
+                                                          are `overall`, `components`.
+                                                        type: string
+                                                      measure:
+                                                        description: SLO measures
+                                                          queries. Valid values are
+                                                          `good_events`, `bad_events`,
+                                                          `slo_status`, `error_budget_remaining`,
+                                                          `burn_rate`, `error_budget_burndown`.
+                                                        type: string
+                                                      name:
+                                                        description: The name of query
+                                                          for use in formulas.
+                                                        type: string
+                                                      sloId:
+                                                        description: ID of an SLO
+                                                          to query.
+                                                        type: string
+                                                      sloQueryType:
+                                                        description: type of the SLO
+                                                          to query. Valid values are
+                                                          `metric`.
+                                                        type: string
+                                                    required:
+                                                    - dataSource
+                                                    - measure
+                                                    - sloId
                                                     type: object
                                                   type: array
                                               type: object
@@ -23219,6 +23855,44 @@ spec:
                                               - name
                                               type: object
                                             type: array
+                                          sloQuery:
+                                            description: The slo query using formulas
+                                              and functions.
+                                            items:
+                                              properties:
+                                                dataSource:
+                                                  description: The data source for
+                                                    slo queries. Valid values are
+                                                    `slo`.
+                                                  type: string
+                                                groupMode:
+                                                  description: Group mode to query
+                                                    measures. Valid values are `overall`,
+                                                    `components`.
+                                                  type: string
+                                                measure:
+                                                  description: SLO measures queries.
+                                                    Valid values are `good_events`,
+                                                    `bad_events`, `slo_status`, `error_budget_remaining`,
+                                                    `burn_rate`, `error_budget_burndown`.
+                                                  type: string
+                                                name:
+                                                  description: The name of query for
+                                                    use in formulas.
+                                                  type: string
+                                                sloId:
+                                                  description: ID of an SLO to query.
+                                                  type: string
+                                                sloQueryType:
+                                                  description: type of the SLO to
+                                                    query. Valid values are `metric`.
+                                                  type: string
+                                              required:
+                                              - dataSource
+                                              - measure
+                                              - sloId
+                                              type: object
+                                            type: array
                                         type: object
                                       type: array
                                     rumQuery:
@@ -24380,6 +25054,44 @@ spec:
                                               - name
                                               type: object
                                             type: array
+                                          sloQuery:
+                                            description: The slo query using formulas
+                                              and functions.
+                                            items:
+                                              properties:
+                                                dataSource:
+                                                  description: The data source for
+                                                    slo queries. Valid values are
+                                                    `slo`.
+                                                  type: string
+                                                groupMode:
+                                                  description: Group mode to query
+                                                    measures. Valid values are `overall`,
+                                                    `components`.
+                                                  type: string
+                                                measure:
+                                                  description: SLO measures queries.
+                                                    Valid values are `good_events`,
+                                                    `bad_events`, `slo_status`, `error_budget_remaining`,
+                                                    `burn_rate`, `error_budget_burndown`.
+                                                  type: string
+                                                name:
+                                                  description: The name of query for
+                                                    use in formulas.
+                                                  type: string
+                                                sloId:
+                                                  description: ID of an SLO to query.
+                                                  type: string
+                                                sloQueryType:
+                                                  description: type of the SLO to
+                                                    query. Valid values are `metric`.
+                                                  type: string
+                                              required:
+                                              - dataSource
+                                              - measure
+                                              - sloId
+                                              type: object
+                                            type: array
                                         type: object
                                       type: array
                                     rumQuery:
@@ -25506,6 +26218,44 @@ spec:
                                               - name
                                               type: object
                                             type: array
+                                          sloQuery:
+                                            description: The slo query using formulas
+                                              and functions.
+                                            items:
+                                              properties:
+                                                dataSource:
+                                                  description: The data source for
+                                                    slo queries. Valid values are
+                                                    `slo`.
+                                                  type: string
+                                                groupMode:
+                                                  description: Group mode to query
+                                                    measures. Valid values are `overall`,
+                                                    `components`.
+                                                  type: string
+                                                measure:
+                                                  description: SLO measures queries.
+                                                    Valid values are `good_events`,
+                                                    `bad_events`, `slo_status`, `error_budget_remaining`,
+                                                    `burn_rate`, `error_budget_burndown`.
+                                                  type: string
+                                                name:
+                                                  description: The name of query for
+                                                    use in formulas.
+                                                  type: string
+                                                sloId:
+                                                  description: ID of an SLO to query.
+                                                  type: string
+                                                sloQueryType:
+                                                  description: type of the SLO to
+                                                    query. Valid values are `metric`.
+                                                  type: string
+                                              required:
+                                              - dataSource
+                                              - measure
+                                              - sloId
+                                              type: object
+                                            type: array
                                         type: object
                                       type: array
                                     rumQuery:
@@ -26309,6 +27059,44 @@ spec:
                                               - dataSource
                                               - metric
                                               - name
+                                              type: object
+                                            type: array
+                                          sloQuery:
+                                            description: The slo query using formulas
+                                              and functions.
+                                            items:
+                                              properties:
+                                                dataSource:
+                                                  description: The data source for
+                                                    slo queries. Valid values are
+                                                    `slo`.
+                                                  type: string
+                                                groupMode:
+                                                  description: Group mode to query
+                                                    measures. Valid values are `overall`,
+                                                    `components`.
+                                                  type: string
+                                                measure:
+                                                  description: SLO measures queries.
+                                                    Valid values are `good_events`,
+                                                    `bad_events`, `slo_status`, `error_budget_remaining`,
+                                                    `burn_rate`, `error_budget_burndown`.
+                                                  type: string
+                                                name:
+                                                  description: The name of query for
+                                                    use in formulas.
+                                                  type: string
+                                                sloId:
+                                                  description: ID of an SLO to query.
+                                                  type: string
+                                                sloQueryType:
+                                                  description: type of the SLO to
+                                                    query. Valid values are `metric`.
+                                                  type: string
+                                              required:
+                                              - dataSource
+                                              - measure
+                                              - sloId
                                               type: object
                                             type: array
                                         type: object
@@ -27389,6 +28177,40 @@ spec:
                                                 textFilter:
                                                   description: The text to use as
                                                     a filter.
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          sloQuery:
+                                            description: The slo query using formulas
+                                              and functions.
+                                            items:
+                                              properties:
+                                                dataSource:
+                                                  description: The data source for
+                                                    slo queries. Valid values are
+                                                    `slo`.
+                                                  type: string
+                                                groupMode:
+                                                  description: Group mode to query
+                                                    measures. Valid values are `overall`,
+                                                    `components`.
+                                                  type: string
+                                                measure:
+                                                  description: SLO measures queries.
+                                                    Valid values are `good_events`,
+                                                    `bad_events`, `slo_status`, `error_budget_remaining`,
+                                                    `burn_rate`, `error_budget_burndown`.
+                                                  type: string
+                                                name:
+                                                  description: The name of query for
+                                                    use in formulas.
+                                                  type: string
+                                                sloId:
+                                                  description: ID of an SLO to query.
+                                                  type: string
+                                                sloQueryType:
+                                                  description: type of the SLO to
+                                                    query. Valid values are `metric`.
                                                   type: string
                                               type: object
                                             type: array
@@ -28699,6 +29521,40 @@ spec:
                                                   type: string
                                               type: object
                                             type: array
+                                          sloQuery:
+                                            description: The slo query using formulas
+                                              and functions.
+                                            items:
+                                              properties:
+                                                dataSource:
+                                                  description: The data source for
+                                                    slo queries. Valid values are
+                                                    `slo`.
+                                                  type: string
+                                                groupMode:
+                                                  description: Group mode to query
+                                                    measures. Valid values are `overall`,
+                                                    `components`.
+                                                  type: string
+                                                measure:
+                                                  description: SLO measures queries.
+                                                    Valid values are `good_events`,
+                                                    `bad_events`, `slo_status`, `error_budget_remaining`,
+                                                    `burn_rate`, `error_budget_burndown`.
+                                                  type: string
+                                                name:
+                                                  description: The name of query for
+                                                    use in formulas.
+                                                  type: string
+                                                sloId:
+                                                  description: ID of an SLO to query.
+                                                  type: string
+                                                sloQueryType:
+                                                  description: type of the SLO to
+                                                    query. Valid values are `metric`.
+                                                  type: string
+                                              type: object
+                                            type: array
                                         type: object
                                       type: array
                                     rumQuery:
@@ -29715,6 +30571,46 @@ spec:
                                                             textFilter:
                                                               description: The text
                                                                 to use as a filter.
+                                                              type: string
+                                                          type: object
+                                                        type: array
+                                                      sloQuery:
+                                                        description: The slo query
+                                                          using formulas and functions.
+                                                        items:
+                                                          properties:
+                                                            dataSource:
+                                                              description: The data
+                                                                source for slo queries.
+                                                                Valid values are `slo`.
+                                                              type: string
+                                                            groupMode:
+                                                              description: Group mode
+                                                                to query measures.
+                                                                Valid values are `overall`,
+                                                                `components`.
+                                                              type: string
+                                                            measure:
+                                                              description: SLO measures
+                                                                queries. Valid values
+                                                                are `good_events`,
+                                                                `bad_events`, `slo_status`,
+                                                                `error_budget_remaining`,
+                                                                `burn_rate`, `error_budget_burndown`.
+                                                              type: string
+                                                            name:
+                                                              description: The name
+                                                                of query for use in
+                                                                formulas.
+                                                              type: string
+                                                            sloId:
+                                                              description: ID of an
+                                                                SLO to query.
+                                                              type: string
+                                                            sloQueryType:
+                                                              description: type of
+                                                                the SLO to query.
+                                                                Valid values are `metric`.
                                                               type: string
                                                           type: object
                                                         type: array
@@ -31276,6 +32172,46 @@ spec:
                                                             textFilter:
                                                               description: The text
                                                                 to use as a filter.
+                                                              type: string
+                                                          type: object
+                                                        type: array
+                                                      sloQuery:
+                                                        description: The slo query
+                                                          using formulas and functions.
+                                                        items:
+                                                          properties:
+                                                            dataSource:
+                                                              description: The data
+                                                                source for slo queries.
+                                                                Valid values are `slo`.
+                                                              type: string
+                                                            groupMode:
+                                                              description: Group mode
+                                                                to query measures.
+                                                                Valid values are `overall`,
+                                                                `components`.
+                                                              type: string
+                                                            measure:
+                                                              description: SLO measures
+                                                                queries. Valid values
+                                                                are `good_events`,
+                                                                `bad_events`, `slo_status`,
+                                                                `error_budget_remaining`,
+                                                                `burn_rate`, `error_budget_burndown`.
+                                                              type: string
+                                                            name:
+                                                              description: The name
+                                                                of query for use in
+                                                                formulas.
+                                                              type: string
+                                                            sloId:
+                                                              description: ID of an
+                                                                SLO to query.
+                                                              type: string
+                                                            sloQueryType:
+                                                              description: type of
+                                                                the SLO to query.
+                                                                Valid values are `metric`.
                                                               type: string
                                                           type: object
                                                         type: array
@@ -33197,6 +34133,25 @@ spec:
                                                       queryString:
                                                         description: Widget query.
                                                         type: string
+                                                      sort:
+                                                        description: 'The facet and
+                                                          order to sort the data,
+                                                          for example: `{"column":
+                                                          "time", "order": "desc"}`.'
+                                                        items:
+                                                          properties:
+                                                            column:
+                                                              description: The facet
+                                                                path for the column.
+                                                              type: string
+                                                            order:
+                                                              description: Widget
+                                                                sorting methods. Valid
+                                                                values are `asc`,
+                                                                `desc`.
+                                                              type: string
+                                                          type: object
+                                                        type: array
                                                       storage:
                                                         description: Storage location
                                                           (private beta).
@@ -34317,6 +35272,46 @@ spec:
                                                             textFilter:
                                                               description: The text
                                                                 to use as a filter.
+                                                              type: string
+                                                          type: object
+                                                        type: array
+                                                      sloQuery:
+                                                        description: The slo query
+                                                          using formulas and functions.
+                                                        items:
+                                                          properties:
+                                                            dataSource:
+                                                              description: The data
+                                                                source for slo queries.
+                                                                Valid values are `slo`.
+                                                              type: string
+                                                            groupMode:
+                                                              description: Group mode
+                                                                to query measures.
+                                                                Valid values are `overall`,
+                                                                `components`.
+                                                              type: string
+                                                            measure:
+                                                              description: SLO measures
+                                                                queries. Valid values
+                                                                are `good_events`,
+                                                                `bad_events`, `slo_status`,
+                                                                `error_budget_remaining`,
+                                                                `burn_rate`, `error_budget_burndown`.
+                                                              type: string
+                                                            name:
+                                                              description: The name
+                                                                of query for use in
+                                                                formulas.
+                                                              type: string
+                                                            sloId:
+                                                              description: ID of an
+                                                                SLO to query.
+                                                              type: string
+                                                            sloQueryType:
+                                                              description: type of
+                                                                the SLO to query.
+                                                                Valid values are `metric`.
                                                               type: string
                                                           type: object
                                                         type: array
@@ -35488,6 +36483,46 @@ spec:
                                                               type: string
                                                           type: object
                                                         type: array
+                                                      sloQuery:
+                                                        description: The slo query
+                                                          using formulas and functions.
+                                                        items:
+                                                          properties:
+                                                            dataSource:
+                                                              description: The data
+                                                                source for slo queries.
+                                                                Valid values are `slo`.
+                                                              type: string
+                                                            groupMode:
+                                                              description: Group mode
+                                                                to query measures.
+                                                                Valid values are `overall`,
+                                                                `components`.
+                                                              type: string
+                                                            measure:
+                                                              description: SLO measures
+                                                                queries. Valid values
+                                                                are `good_events`,
+                                                                `bad_events`, `slo_status`,
+                                                                `error_budget_remaining`,
+                                                                `burn_rate`, `error_budget_burndown`.
+                                                              type: string
+                                                            name:
+                                                              description: The name
+                                                                of query for use in
+                                                                formulas.
+                                                              type: string
+                                                            sloId:
+                                                              description: ID of an
+                                                                SLO to query.
+                                                              type: string
+                                                            sloQueryType:
+                                                              description: type of
+                                                                the SLO to query.
+                                                                Valid values are `metric`.
+                                                              type: string
+                                                          type: object
+                                                        type: array
                                                     type: object
                                                   type: array
                                                 rumQuery:
@@ -35759,8 +36794,7 @@ spec:
                                       type: array
                                     runWorkflowDefinition:
                                       description: The definition for a Run Workflow
-                                        widget. **NOTE:** Currently in private beta.
-                                        To request access, contact Support at support@datadoghq.com.
+                                        widget.
                                       items:
                                         properties:
                                           customLink:
@@ -36333,6 +37367,55 @@ spec:
                                                                     description: The
                                                                       text to use
                                                                       as a filter.
+                                                                    type: string
+                                                                type: object
+                                                              type: array
+                                                            sloQuery:
+                                                              description: The slo
+                                                                query using formulas
+                                                                and functions.
+                                                              items:
+                                                                properties:
+                                                                  dataSource:
+                                                                    description: The
+                                                                      data source
+                                                                      for slo queries.
+                                                                      Valid values
+                                                                      are `slo`.
+                                                                    type: string
+                                                                  groupMode:
+                                                                    description: Group
+                                                                      mode to query
+                                                                      measures. Valid
+                                                                      values are `overall`,
+                                                                      `components`.
+                                                                    type: string
+                                                                  measure:
+                                                                    description: SLO
+                                                                      measures queries.
+                                                                      Valid values
+                                                                      are `good_events`,
+                                                                      `bad_events`,
+                                                                      `slo_status`,
+                                                                      `error_budget_remaining`,
+                                                                      `burn_rate`,
+                                                                      `error_budget_burndown`.
+                                                                    type: string
+                                                                  name:
+                                                                    description: The
+                                                                      name of query
+                                                                      for use in formulas.
+                                                                    type: string
+                                                                  sloId:
+                                                                    description: ID
+                                                                      of an SLO to
+                                                                      query.
+                                                                    type: string
+                                                                  sloQueryType:
+                                                                    description: type
+                                                                      of the SLO to
+                                                                      query. Valid
+                                                                      values are `metric`.
                                                                     type: string
                                                                 type: object
                                                               type: array
@@ -38593,6 +39676,46 @@ spec:
                                                               type: string
                                                           type: object
                                                         type: array
+                                                      sloQuery:
+                                                        description: The slo query
+                                                          using formulas and functions.
+                                                        items:
+                                                          properties:
+                                                            dataSource:
+                                                              description: The data
+                                                                source for slo queries.
+                                                                Valid values are `slo`.
+                                                              type: string
+                                                            groupMode:
+                                                              description: Group mode
+                                                                to query measures.
+                                                                Valid values are `overall`,
+                                                                `components`.
+                                                              type: string
+                                                            measure:
+                                                              description: SLO measures
+                                                                queries. Valid values
+                                                                are `good_events`,
+                                                                `bad_events`, `slo_status`,
+                                                                `error_budget_remaining`,
+                                                                `burn_rate`, `error_budget_burndown`.
+                                                              type: string
+                                                            name:
+                                                              description: The name
+                                                                of query for use in
+                                                                formulas.
+                                                              type: string
+                                                            sloId:
+                                                              description: ID of an
+                                                                SLO to query.
+                                                              type: string
+                                                            sloQueryType:
+                                                              description: type of
+                                                                the SLO to query.
+                                                                Valid values are `metric`.
+                                                              type: string
+                                                          type: object
+                                                        type: array
                                                     type: object
                                                   type: array
                                                 rumQuery:
@@ -39870,6 +40993,46 @@ spec:
                                                               type: string
                                                           type: object
                                                         type: array
+                                                      sloQuery:
+                                                        description: The slo query
+                                                          using formulas and functions.
+                                                        items:
+                                                          properties:
+                                                            dataSource:
+                                                              description: The data
+                                                                source for slo queries.
+                                                                Valid values are `slo`.
+                                                              type: string
+                                                            groupMode:
+                                                              description: Group mode
+                                                                to query measures.
+                                                                Valid values are `overall`,
+                                                                `components`.
+                                                              type: string
+                                                            measure:
+                                                              description: SLO measures
+                                                                queries. Valid values
+                                                                are `good_events`,
+                                                                `bad_events`, `slo_status`,
+                                                                `error_budget_remaining`,
+                                                                `burn_rate`, `error_budget_burndown`.
+                                                              type: string
+                                                            name:
+                                                              description: The name
+                                                                of query for use in
+                                                                formulas.
+                                                              type: string
+                                                            sloId:
+                                                              description: ID of an
+                                                                SLO to query.
+                                                              type: string
+                                                            sloQueryType:
+                                                              description: type of
+                                                                the SLO to query.
+                                                                Valid values are `metric`.
+                                                              type: string
+                                                          type: object
+                                                        type: array
                                                     type: object
                                                   type: array
                                                 rumQuery:
@@ -41109,6 +42272,46 @@ spec:
                                                               type: string
                                                           type: object
                                                         type: array
+                                                      sloQuery:
+                                                        description: The slo query
+                                                          using formulas and functions.
+                                                        items:
+                                                          properties:
+                                                            dataSource:
+                                                              description: The data
+                                                                source for slo queries.
+                                                                Valid values are `slo`.
+                                                              type: string
+                                                            groupMode:
+                                                              description: Group mode
+                                                                to query measures.
+                                                                Valid values are `overall`,
+                                                                `components`.
+                                                              type: string
+                                                            measure:
+                                                              description: SLO measures
+                                                                queries. Valid values
+                                                                are `good_events`,
+                                                                `bad_events`, `slo_status`,
+                                                                `error_budget_remaining`,
+                                                                `burn_rate`, `error_budget_burndown`.
+                                                              type: string
+                                                            name:
+                                                              description: The name
+                                                                of query for use in
+                                                                formulas.
+                                                              type: string
+                                                            sloId:
+                                                              description: ID of an
+                                                                SLO to query.
+                                                              type: string
+                                                            sloQueryType:
+                                                              description: type of
+                                                                the SLO to query.
+                                                                Valid values are `metric`.
+                                                              type: string
+                                                          type: object
+                                                        type: array
                                                     type: object
                                                   type: array
                                                 rumQuery:
@@ -41990,6 +43193,46 @@ spec:
                                                             textFilter:
                                                               description: The text
                                                                 to use as a filter.
+                                                              type: string
+                                                          type: object
+                                                        type: array
+                                                      sloQuery:
+                                                        description: The slo query
+                                                          using formulas and functions.
+                                                        items:
+                                                          properties:
+                                                            dataSource:
+                                                              description: The data
+                                                                source for slo queries.
+                                                                Valid values are `slo`.
+                                                              type: string
+                                                            groupMode:
+                                                              description: Group mode
+                                                                to query measures.
+                                                                Valid values are `overall`,
+                                                                `components`.
+                                                              type: string
+                                                            measure:
+                                                              description: SLO measures
+                                                                queries. Valid values
+                                                                are `good_events`,
+                                                                `bad_events`, `slo_status`,
+                                                                `error_budget_remaining`,
+                                                                `burn_rate`, `error_budget_burndown`.
+                                                              type: string
+                                                            name:
+                                                              description: The name
+                                                                of query for use in
+                                                                formulas.
+                                                              type: string
+                                                            sloId:
+                                                              description: ID of an
+                                                                SLO to query.
+                                                              type: string
+                                                            sloQueryType:
+                                                              description: type of
+                                                                the SLO to query.
+                                                                Valid values are `metric`.
                                                               type: string
                                                           type: object
                                                         type: array
@@ -43525,6 +44768,22 @@ spec:
                                           queryString:
                                             description: Widget query.
                                             type: string
+                                          sort:
+                                            description: 'The facet and order to sort
+                                              the data, for example: `{"column": "time",
+                                              "order": "desc"}`.'
+                                            items:
+                                              properties:
+                                                column:
+                                                  description: The facet path for
+                                                    the column.
+                                                  type: string
+                                                order:
+                                                  description: Widget sorting methods.
+                                                    Valid values are `asc`, `desc`.
+                                                  type: string
+                                              type: object
+                                            type: array
                                           storage:
                                             description: Storage location (private
                                               beta).
@@ -44460,6 +45719,40 @@ spec:
                                                 textFilter:
                                                   description: The text to use as
                                                     a filter.
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          sloQuery:
+                                            description: The slo query using formulas
+                                              and functions.
+                                            items:
+                                              properties:
+                                                dataSource:
+                                                  description: The data source for
+                                                    slo queries. Valid values are
+                                                    `slo`.
+                                                  type: string
+                                                groupMode:
+                                                  description: Group mode to query
+                                                    measures. Valid values are `overall`,
+                                                    `components`.
+                                                  type: string
+                                                measure:
+                                                  description: SLO measures queries.
+                                                    Valid values are `good_events`,
+                                                    `bad_events`, `slo_status`, `error_budget_remaining`,
+                                                    `burn_rate`, `error_budget_burndown`.
+                                                  type: string
+                                                name:
+                                                  description: The name of query for
+                                                    use in formulas.
+                                                  type: string
+                                                sloId:
+                                                  description: ID of an SLO to query.
+                                                  type: string
+                                                sloQueryType:
+                                                  description: type of the SLO to
+                                                    query. Valid values are `metric`.
                                                   type: string
                                               type: object
                                             type: array
@@ -45432,6 +46725,40 @@ spec:
                                                   type: string
                                               type: object
                                             type: array
+                                          sloQuery:
+                                            description: The slo query using formulas
+                                              and functions.
+                                            items:
+                                              properties:
+                                                dataSource:
+                                                  description: The data source for
+                                                    slo queries. Valid values are
+                                                    `slo`.
+                                                  type: string
+                                                groupMode:
+                                                  description: Group mode to query
+                                                    measures. Valid values are `overall`,
+                                                    `components`.
+                                                  type: string
+                                                measure:
+                                                  description: SLO measures queries.
+                                                    Valid values are `good_events`,
+                                                    `bad_events`, `slo_status`, `error_budget_remaining`,
+                                                    `burn_rate`, `error_budget_burndown`.
+                                                  type: string
+                                                name:
+                                                  description: The name of query for
+                                                    use in formulas.
+                                                  type: string
+                                                sloId:
+                                                  description: ID of an SLO to query.
+                                                  type: string
+                                                sloQueryType:
+                                                  description: type of the SLO to
+                                                    query. Valid values are `metric`.
+                                                  type: string
+                                              type: object
+                                            type: array
                                         type: object
                                       type: array
                                     rumQuery:
@@ -45661,9 +46988,7 @@ spec:
                             type: object
                           type: array
                         runWorkflowDefinition:
-                          description: The definition for a Run Workflow widget. **NOTE:**
-                            Currently in private beta. To request access, contact
-                            Support at support@datadoghq.com.
+                          description: The definition for a Run Workflow widget.
                           items:
                             properties:
                               customLink:
@@ -46095,6 +47420,43 @@ spec:
                                                       textFilter:
                                                         description: The text to use
                                                           as a filter.
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                sloQuery:
+                                                  description: The slo query using
+                                                    formulas and functions.
+                                                  items:
+                                                    properties:
+                                                      dataSource:
+                                                        description: The data source
+                                                          for slo queries. Valid values
+                                                          are `slo`.
+                                                        type: string
+                                                      groupMode:
+                                                        description: Group mode to
+                                                          query measures. Valid values
+                                                          are `overall`, `components`.
+                                                        type: string
+                                                      measure:
+                                                        description: SLO measures
+                                                          queries. Valid values are
+                                                          `good_events`, `bad_events`,
+                                                          `slo_status`, `error_budget_remaining`,
+                                                          `burn_rate`, `error_budget_burndown`.
+                                                        type: string
+                                                      name:
+                                                        description: The name of query
+                                                          for use in formulas.
+                                                        type: string
+                                                      sloId:
+                                                        description: ID of an SLO
+                                                          to query.
+                                                        type: string
+                                                      sloQueryType:
+                                                        description: type of the SLO
+                                                          to query. Valid values are
+                                                          `metric`.
                                                         type: string
                                                     type: object
                                                   type: array
@@ -47977,6 +49339,40 @@ spec:
                                                   type: string
                                               type: object
                                             type: array
+                                          sloQuery:
+                                            description: The slo query using formulas
+                                              and functions.
+                                            items:
+                                              properties:
+                                                dataSource:
+                                                  description: The data source for
+                                                    slo queries. Valid values are
+                                                    `slo`.
+                                                  type: string
+                                                groupMode:
+                                                  description: Group mode to query
+                                                    measures. Valid values are `overall`,
+                                                    `components`.
+                                                  type: string
+                                                measure:
+                                                  description: SLO measures queries.
+                                                    Valid values are `good_events`,
+                                                    `bad_events`, `slo_status`, `error_budget_remaining`,
+                                                    `burn_rate`, `error_budget_burndown`.
+                                                  type: string
+                                                name:
+                                                  description: The name of query for
+                                                    use in formulas.
+                                                  type: string
+                                                sloId:
+                                                  description: ID of an SLO to query.
+                                                  type: string
+                                                sloQueryType:
+                                                  description: type of the SLO to
+                                                    query. Valid values are `metric`.
+                                                  type: string
+                                              type: object
+                                            type: array
                                         type: object
                                       type: array
                                     rumQuery:
@@ -49037,6 +50433,40 @@ spec:
                                                   type: string
                                               type: object
                                             type: array
+                                          sloQuery:
+                                            description: The slo query using formulas
+                                              and functions.
+                                            items:
+                                              properties:
+                                                dataSource:
+                                                  description: The data source for
+                                                    slo queries. Valid values are
+                                                    `slo`.
+                                                  type: string
+                                                groupMode:
+                                                  description: Group mode to query
+                                                    measures. Valid values are `overall`,
+                                                    `components`.
+                                                  type: string
+                                                measure:
+                                                  description: SLO measures queries.
+                                                    Valid values are `good_events`,
+                                                    `bad_events`, `slo_status`, `error_budget_remaining`,
+                                                    `burn_rate`, `error_budget_burndown`.
+                                                  type: string
+                                                name:
+                                                  description: The name of query for
+                                                    use in formulas.
+                                                  type: string
+                                                sloId:
+                                                  description: ID of an SLO to query.
+                                                  type: string
+                                                sloQueryType:
+                                                  description: type of the SLO to
+                                                    query. Valid values are `metric`.
+                                                  type: string
+                                              type: object
+                                            type: array
                                         type: object
                                       type: array
                                     rumQuery:
@@ -50073,6 +51503,40 @@ spec:
                                                   type: string
                                               type: object
                                             type: array
+                                          sloQuery:
+                                            description: The slo query using formulas
+                                              and functions.
+                                            items:
+                                              properties:
+                                                dataSource:
+                                                  description: The data source for
+                                                    slo queries. Valid values are
+                                                    `slo`.
+                                                  type: string
+                                                groupMode:
+                                                  description: Group mode to query
+                                                    measures. Valid values are `overall`,
+                                                    `components`.
+                                                  type: string
+                                                measure:
+                                                  description: SLO measures queries.
+                                                    Valid values are `good_events`,
+                                                    `bad_events`, `slo_status`, `error_budget_remaining`,
+                                                    `burn_rate`, `error_budget_burndown`.
+                                                  type: string
+                                                name:
+                                                  description: The name of query for
+                                                    use in formulas.
+                                                  type: string
+                                                sloId:
+                                                  description: ID of an SLO to query.
+                                                  type: string
+                                                sloQueryType:
+                                                  description: type of the SLO to
+                                                    query. Valid values are `metric`.
+                                                  type: string
+                                              type: object
+                                            type: array
                                         type: object
                                       type: array
                                     rumQuery:
@@ -50807,6 +52271,40 @@ spec:
                                                 textFilter:
                                                   description: The text to use as
                                                     a filter.
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          sloQuery:
+                                            description: The slo query using formulas
+                                              and functions.
+                                            items:
+                                              properties:
+                                                dataSource:
+                                                  description: The data source for
+                                                    slo queries. Valid values are
+                                                    `slo`.
+                                                  type: string
+                                                groupMode:
+                                                  description: Group mode to query
+                                                    measures. Valid values are `overall`,
+                                                    `components`.
+                                                  type: string
+                                                measure:
+                                                  description: SLO measures queries.
+                                                    Valid values are `good_events`,
+                                                    `bad_events`, `slo_status`, `error_budget_remaining`,
+                                                    `burn_rate`, `error_budget_burndown`.
+                                                  type: string
+                                                name:
+                                                  description: The name of query for
+                                                    use in formulas.
+                                                  type: string
+                                                sloId:
+                                                  description: ID of an SLO to query.
+                                                  type: string
+                                                sloQueryType:
+                                                  description: type of the SLO to
+                                                    query. Valid values are `metric`.
                                                   type: string
                                               type: object
                                             type: array

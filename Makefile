@@ -4,11 +4,11 @@
 PROJECT_NAME ?= provider-datadog
 PROJECT_REPO ?= github.com/ok-amba/$(PROJECT_NAME)
 
-export TERRAFORM_VERSION ?= 1.4.6
+export TERRAFORM_VERSION ?= 1.5.3
 
 export TERRAFORM_PROVIDER_SOURCE := DataDog/datadog
 export TERRAFORM_PROVIDER_REPO ?= https://github.com/DataDog/terraform-provider-datadog
-export TERRAFORM_PROVIDER_VERSION := 3.25.0
+export TERRAFORM_PROVIDER_VERSION := 3.27.0
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME := terraform-provider-datadog
 # export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX := https://releases.hashicorp.com/terraform-provider-datadog/3.12.0
 export TERRAFORM_NATIVE_PROVIDER_BINARY := terraform-provider-datadog_v$(TERRAFORM_PROVIDER_VERSION)

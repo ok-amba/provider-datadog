@@ -1125,6 +1125,9 @@ type ChangeDefinitionRequestQueryObservation struct {
 
 	// The process query using formulas and functions.
 	ProcessQuery []ChangeDefinitionRequestQueryProcessQueryObservation `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	SLOQuery []RequestQuerySLOQueryObservation `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type ChangeDefinitionRequestQueryParameters struct {
@@ -1148,6 +1151,10 @@ type ChangeDefinitionRequestQueryParameters struct {
 	// The process query using formulas and functions.
 	// +kubebuilder:validation:Optional
 	ProcessQuery []ChangeDefinitionRequestQueryProcessQueryParameters `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	// +kubebuilder:validation:Optional
+	SLOQuery []RequestQuerySLOQueryParameters `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type ChangeDefinitionRequestQueryProcessQueryObservation struct {
@@ -4500,6 +4507,9 @@ type GeomapDefinitionRequestQueryObservation struct {
 
 	// The process query using formulas and functions.
 	ProcessQuery []GeomapDefinitionRequestQueryProcessQueryObservation `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	SLOQuery []GeomapDefinitionRequestQuerySLOQueryObservation `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type GeomapDefinitionRequestQueryParameters struct {
@@ -4523,6 +4533,10 @@ type GeomapDefinitionRequestQueryParameters struct {
 	// The process query using formulas and functions.
 	// +kubebuilder:validation:Optional
 	ProcessQuery []GeomapDefinitionRequestQueryProcessQueryParameters `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	// +kubebuilder:validation:Optional
+	SLOQuery []GeomapDefinitionRequestQuerySLOQueryParameters `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type GeomapDefinitionRequestQueryProcessQueryObservation struct {
@@ -4592,6 +4606,54 @@ type GeomapDefinitionRequestQueryProcessQueryParameters struct {
 	// The text to use as a filter.
 	// +kubebuilder:validation:Optional
 	TextFilter *string `json:"textFilter,omitempty" tf:"text_filter,omitempty"`
+}
+
+type GeomapDefinitionRequestQuerySLOQueryObservation struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	Measure *string `json:"measure,omitempty" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	SLOID *string `json:"sloId,omitempty" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
+}
+
+type GeomapDefinitionRequestQuerySLOQueryParameters struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	// +kubebuilder:validation:Required
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	// +kubebuilder:validation:Optional
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	// +kubebuilder:validation:Required
+	Measure *string `json:"measure" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	// +kubebuilder:validation:Required
+	SLOID *string `json:"sloId" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	// +kubebuilder:validation:Optional
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
 }
 
 type GeomapDefinitionRequestRumQueryComputeQueryObservation struct {
@@ -4967,7 +5029,7 @@ type GroupDefinitionWidgetObservation struct {
 	// The definition for a Query Value widget.
 	QueryValueDefinition []QueryValueDefinitionObservation `json:"queryValueDefinition,omitempty" tf:"query_value_definition,omitempty"`
 
-	// The definition for a Run Workflow widget. **NOTE:** Currently in private beta. To request access, contact Support at support@datadoghq.com.
+	// The definition for a Run Workflow widget.
 	RunWorkflowDefinition []RunWorkflowDefinitionObservation `json:"runWorkflowDefinition,omitempty" tf:"run_workflow_definition,omitempty"`
 
 	// The definition for an SLO (Service Level Objective) List widget.
@@ -5082,7 +5144,7 @@ type GroupDefinitionWidgetParameters struct {
 	// +kubebuilder:validation:Optional
 	QueryValueDefinition []QueryValueDefinitionParameters `json:"queryValueDefinition,omitempty" tf:"query_value_definition,omitempty"`
 
-	// The definition for a Run Workflow widget. **NOTE:** Currently in private beta. To request access, contact Support at support@datadoghq.com.
+	// The definition for a Run Workflow widget.
 	// +kubebuilder:validation:Optional
 	RunWorkflowDefinition []RunWorkflowDefinitionParameters `json:"runWorkflowDefinition,omitempty" tf:"run_workflow_definition,omitempty"`
 
@@ -6421,6 +6483,9 @@ type ListStreamDefinitionRequestQueryObservation struct {
 	// Widget query.
 	QueryString *string `json:"queryString,omitempty" tf:"query_string,omitempty"`
 
+	// The facet and order to sort the data, for example: `{"column": "time", "order": "desc"}`.
+	Sort []QuerySortObservation `json:"sort,omitempty" tf:"sort,omitempty"`
+
 	// Storage location (private beta).
 	Storage *string `json:"storage,omitempty" tf:"storage,omitempty"`
 }
@@ -6443,9 +6508,33 @@ type ListStreamDefinitionRequestQueryParameters struct {
 	// +kubebuilder:validation:Optional
 	QueryString *string `json:"queryString,omitempty" tf:"query_string,omitempty"`
 
+	// The facet and order to sort the data, for example: `{"column": "time", "order": "desc"}`.
+	// +kubebuilder:validation:Optional
+	Sort []QuerySortParameters `json:"sort,omitempty" tf:"sort,omitempty"`
+
 	// Storage location (private beta).
 	// +kubebuilder:validation:Optional
 	Storage *string `json:"storage,omitempty" tf:"storage,omitempty"`
+}
+
+type ListStreamDefinitionRequestQuerySortObservation struct {
+
+	// The facet path for the column.
+	Column *string `json:"column,omitempty" tf:"column,omitempty"`
+
+	// Widget sorting methods. Valid values are `asc`, `desc`.
+	Order *string `json:"order,omitempty" tf:"order,omitempty"`
+}
+
+type ListStreamDefinitionRequestQuerySortParameters struct {
+
+	// The facet path for the column.
+	// +kubebuilder:validation:Required
+	Column *string `json:"column" tf:"column,omitempty"`
+
+	// Widget sorting methods. Valid values are `asc`, `desc`.
+	// +kubebuilder:validation:Required
+	Order *string `json:"order" tf:"order,omitempty"`
 }
 
 type LogQueryComputeQueryObservation struct {
@@ -7494,6 +7583,9 @@ type QueryObservation struct {
 
 	// The process query using formulas and functions.
 	ProcessQuery []QueryProcessQueryObservation `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	SLOQuery []SLOQueryObservation `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type QueryParameters struct {
@@ -7517,6 +7609,10 @@ type QueryParameters struct {
 	// The process query using formulas and functions.
 	// +kubebuilder:validation:Optional
 	ProcessQuery []QueryProcessQueryParameters `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	// +kubebuilder:validation:Optional
+	SLOQuery []SLOQueryParameters `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type QueryProcessQueryObservation struct {
@@ -7586,6 +7682,54 @@ type QueryProcessQueryParameters struct {
 	// The text to use as a filter.
 	// +kubebuilder:validation:Optional
 	TextFilter *string `json:"textFilter,omitempty" tf:"text_filter,omitempty"`
+}
+
+type QuerySLOQueryObservation struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	Measure *string `json:"measure,omitempty" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	SLOID *string `json:"sloId,omitempty" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
+}
+
+type QuerySLOQueryParameters struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	// +kubebuilder:validation:Required
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	// +kubebuilder:validation:Optional
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	// +kubebuilder:validation:Required
+	Measure *string `json:"measure" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	// +kubebuilder:validation:Required
+	SLOID *string `json:"sloId" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	// +kubebuilder:validation:Optional
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
 }
 
 type QuerySortObservation struct {
@@ -8800,6 +8944,9 @@ type QueryTableDefinitionRequestQueryObservation struct {
 
 	// The process query using formulas and functions.
 	ProcessQuery []QueryTableDefinitionRequestQueryProcessQueryObservation `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	SLOQuery []QueryTableDefinitionRequestQuerySLOQueryObservation `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type QueryTableDefinitionRequestQueryParameters struct {
@@ -8823,6 +8970,10 @@ type QueryTableDefinitionRequestQueryParameters struct {
 	// The process query using formulas and functions.
 	// +kubebuilder:validation:Optional
 	ProcessQuery []QueryTableDefinitionRequestQueryProcessQueryParameters `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	// +kubebuilder:validation:Optional
+	SLOQuery []QueryTableDefinitionRequestQuerySLOQueryParameters `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type QueryTableDefinitionRequestQueryProcessQueryObservation struct {
@@ -8892,6 +9043,54 @@ type QueryTableDefinitionRequestQueryProcessQueryParameters struct {
 	// The text to use as a filter.
 	// +kubebuilder:validation:Optional
 	TextFilter *string `json:"textFilter,omitempty" tf:"text_filter,omitempty"`
+}
+
+type QueryTableDefinitionRequestQuerySLOQueryObservation struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	Measure *string `json:"measure,omitempty" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	SLOID *string `json:"sloId,omitempty" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
+}
+
+type QueryTableDefinitionRequestQuerySLOQueryParameters struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	// +kubebuilder:validation:Required
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	// +kubebuilder:validation:Optional
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	// +kubebuilder:validation:Required
+	Measure *string `json:"measure" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	// +kubebuilder:validation:Required
+	SLOID *string `json:"sloId" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	// +kubebuilder:validation:Optional
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
 }
 
 type QueryTableDefinitionRequestRumQueryComputeQueryObservation struct {
@@ -10446,6 +10645,9 @@ type QueryValueDefinitionRequestQueryObservation struct {
 
 	// The process query using formulas and functions.
 	ProcessQuery []QueryValueDefinitionRequestQueryProcessQueryObservation `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	SLOQuery []QueryValueDefinitionRequestQuerySLOQueryObservation `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type QueryValueDefinitionRequestQueryParameters struct {
@@ -10469,6 +10671,10 @@ type QueryValueDefinitionRequestQueryParameters struct {
 	// The process query using formulas and functions.
 	// +kubebuilder:validation:Optional
 	ProcessQuery []QueryValueDefinitionRequestQueryProcessQueryParameters `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	// +kubebuilder:validation:Optional
+	SLOQuery []QueryValueDefinitionRequestQuerySLOQueryParameters `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type QueryValueDefinitionRequestQueryProcessQueryObservation struct {
@@ -10538,6 +10744,54 @@ type QueryValueDefinitionRequestQueryProcessQueryParameters struct {
 	// The text to use as a filter.
 	// +kubebuilder:validation:Optional
 	TextFilter *string `json:"textFilter,omitempty" tf:"text_filter,omitempty"`
+}
+
+type QueryValueDefinitionRequestQuerySLOQueryObservation struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	Measure *string `json:"measure,omitempty" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	SLOID *string `json:"sloId,omitempty" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
+}
+
+type QueryValueDefinitionRequestQuerySLOQueryParameters struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	// +kubebuilder:validation:Required
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	// +kubebuilder:validation:Optional
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	// +kubebuilder:validation:Required
+	Measure *string `json:"measure" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	// +kubebuilder:validation:Required
+	SLOID *string `json:"sloId" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	// +kubebuilder:validation:Optional
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
 }
 
 type QueryValueDefinitionRequestRumQueryComputeQueryObservation struct {
@@ -13013,6 +13267,9 @@ type RequestQueryObservation struct {
 
 	// The process query using formulas and functions.
 	ProcessQuery []RequestQueryProcessQueryObservation `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	SLOQuery []QuerySLOQueryObservation `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type RequestQueryParameters struct {
@@ -13036,6 +13293,10 @@ type RequestQueryParameters struct {
 	// The process query using formulas and functions.
 	// +kubebuilder:validation:Optional
 	ProcessQuery []RequestQueryProcessQueryParameters `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	// +kubebuilder:validation:Optional
+	SLOQuery []QuerySLOQueryParameters `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type RequestQueryProcessQueryObservation struct {
@@ -13105,6 +13366,54 @@ type RequestQueryProcessQueryParameters struct {
 	// The text to use as a filter.
 	// +kubebuilder:validation:Optional
 	TextFilter *string `json:"textFilter,omitempty" tf:"text_filter,omitempty"`
+}
+
+type RequestQuerySLOQueryObservation struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	Measure *string `json:"measure,omitempty" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	SLOID *string `json:"sloId,omitempty" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
+}
+
+type RequestQuerySLOQueryParameters struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	// +kubebuilder:validation:Required
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	// +kubebuilder:validation:Optional
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	// +kubebuilder:validation:Required
+	Measure *string `json:"measure" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	// +kubebuilder:validation:Required
+	SLOID *string `json:"sloId" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	// +kubebuilder:validation:Optional
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
 }
 
 type RequestQuerySortObservation struct {
@@ -13669,6 +13978,9 @@ type RequestScatterplotTableQueryObservation struct {
 
 	// The process query using formulas and functions.
 	ProcessQuery []RequestScatterplotTableQueryProcessQueryObservation `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	SLOQuery []RequestScatterplotTableQuerySLOQueryObservation `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type RequestScatterplotTableQueryParameters struct {
@@ -13692,6 +14004,10 @@ type RequestScatterplotTableQueryParameters struct {
 	// The process query using formulas and functions.
 	// +kubebuilder:validation:Optional
 	ProcessQuery []RequestScatterplotTableQueryProcessQueryParameters `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	// +kubebuilder:validation:Optional
+	SLOQuery []RequestScatterplotTableQuerySLOQueryParameters `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type RequestScatterplotTableQueryProcessQueryObservation struct {
@@ -13761,6 +14077,54 @@ type RequestScatterplotTableQueryProcessQueryParameters struct {
 	// The text to use as a filter.
 	// +kubebuilder:validation:Optional
 	TextFilter *string `json:"textFilter,omitempty" tf:"text_filter,omitempty"`
+}
+
+type RequestScatterplotTableQuerySLOQueryObservation struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	Measure *string `json:"measure,omitempty" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	SLOID *string `json:"sloId,omitempty" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
+}
+
+type RequestScatterplotTableQuerySLOQueryParameters struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	// +kubebuilder:validation:Required
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	// +kubebuilder:validation:Optional
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	// +kubebuilder:validation:Required
+	Measure *string `json:"measure" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	// +kubebuilder:validation:Required
+	SLOID *string `json:"sloId" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	// +kubebuilder:validation:Optional
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
 }
 
 type RequestSecurityQueryComputeQueryObservation struct {
@@ -16335,7 +16699,7 @@ type SLOListDefinitionRequestQueryObservation struct {
 	QueryString *string `json:"queryString,omitempty" tf:"query_string,omitempty"`
 
 	// The facet and order to sort the data, for example: `{"column": "status.sli", "order": "desc"}`.
-	Sort []QuerySortObservation `json:"sort,omitempty" tf:"sort,omitempty"`
+	Sort []RequestQuerySortObservation `json:"sort,omitempty" tf:"sort,omitempty"`
 }
 
 type SLOListDefinitionRequestQueryParameters struct {
@@ -16350,7 +16714,75 @@ type SLOListDefinitionRequestQueryParameters struct {
 
 	// The facet and order to sort the data, for example: `{"column": "status.sli", "order": "desc"}`.
 	// +kubebuilder:validation:Optional
-	Sort []QuerySortParameters `json:"sort,omitempty" tf:"sort,omitempty"`
+	Sort []RequestQuerySortParameters `json:"sort,omitempty" tf:"sort,omitempty"`
+}
+
+type SLOListDefinitionRequestQuerySortObservation struct {
+
+	// The facet path for the column.
+	Column *string `json:"column,omitempty" tf:"column,omitempty"`
+
+	// Widget sorting methods. Valid values are `asc`, `desc`.
+	Order *string `json:"order,omitempty" tf:"order,omitempty"`
+}
+
+type SLOListDefinitionRequestQuerySortParameters struct {
+
+	// The facet path for the column.
+	// +kubebuilder:validation:Required
+	Column *string `json:"column" tf:"column,omitempty"`
+
+	// Widget sorting methods. Valid values are `asc`, `desc`.
+	// +kubebuilder:validation:Required
+	Order *string `json:"order" tf:"order,omitempty"`
+}
+
+type SLOQueryObservation struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	Measure *string `json:"measure,omitempty" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	SLOID *string `json:"sloId,omitempty" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
+}
+
+type SLOQueryParameters struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	// +kubebuilder:validation:Required
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	// +kubebuilder:validation:Optional
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	// +kubebuilder:validation:Required
+	Measure *string `json:"measure" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	// +kubebuilder:validation:Required
+	SLOID *string `json:"sloId" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	// +kubebuilder:validation:Optional
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
 }
 
 type ScatterplotDefinitionCustomLinkObservation struct {
@@ -16958,6 +17390,9 @@ type ScatterplotTableQueryObservation struct {
 
 	// The process query using formulas and functions.
 	ProcessQuery []ScatterplotTableQueryProcessQueryObservation `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	SLOQuery []ScatterplotTableQuerySLOQueryObservation `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type ScatterplotTableQueryParameters struct {
@@ -16981,6 +17416,10 @@ type ScatterplotTableQueryParameters struct {
 	// The process query using formulas and functions.
 	// +kubebuilder:validation:Optional
 	ProcessQuery []ScatterplotTableQueryProcessQueryParameters `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	// +kubebuilder:validation:Optional
+	SLOQuery []ScatterplotTableQuerySLOQueryParameters `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type ScatterplotTableQueryProcessQueryObservation struct {
@@ -17050,6 +17489,54 @@ type ScatterplotTableQueryProcessQueryParameters struct {
 	// The text to use as a filter.
 	// +kubebuilder:validation:Optional
 	TextFilter *string `json:"textFilter,omitempty" tf:"text_filter,omitempty"`
+}
+
+type ScatterplotTableQuerySLOQueryObservation struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	Measure *string `json:"measure,omitempty" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	SLOID *string `json:"sloId,omitempty" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
+}
+
+type ScatterplotTableQuerySLOQueryParameters struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	// +kubebuilder:validation:Required
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	// +kubebuilder:validation:Optional
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	// +kubebuilder:validation:Required
+	Measure *string `json:"measure" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	// +kubebuilder:validation:Required
+	SLOID *string `json:"sloId" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	// +kubebuilder:validation:Optional
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
 }
 
 type SearchObservation struct {
@@ -19477,6 +19964,9 @@ type SunburstDefinitionRequestQueryObservation struct {
 
 	// The process query using formulas and functions.
 	ProcessQuery []SunburstDefinitionRequestQueryProcessQueryObservation `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	SLOQuery []SunburstDefinitionRequestQuerySLOQueryObservation `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type SunburstDefinitionRequestQueryParameters struct {
@@ -19500,6 +19990,10 @@ type SunburstDefinitionRequestQueryParameters struct {
 	// The process query using formulas and functions.
 	// +kubebuilder:validation:Optional
 	ProcessQuery []SunburstDefinitionRequestQueryProcessQueryParameters `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	// +kubebuilder:validation:Optional
+	SLOQuery []SunburstDefinitionRequestQuerySLOQueryParameters `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type SunburstDefinitionRequestQueryProcessQueryObservation struct {
@@ -19569,6 +20063,54 @@ type SunburstDefinitionRequestQueryProcessQueryParameters struct {
 	// The text to use as a filter.
 	// +kubebuilder:validation:Optional
 	TextFilter *string `json:"textFilter,omitempty" tf:"text_filter,omitempty"`
+}
+
+type SunburstDefinitionRequestQuerySLOQueryObservation struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	Measure *string `json:"measure,omitempty" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	SLOID *string `json:"sloId,omitempty" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
+}
+
+type SunburstDefinitionRequestQuerySLOQueryParameters struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	// +kubebuilder:validation:Required
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	// +kubebuilder:validation:Optional
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	// +kubebuilder:validation:Required
+	Measure *string `json:"measure" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	// +kubebuilder:validation:Required
+	SLOID *string `json:"sloId" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	// +kubebuilder:validation:Optional
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
 }
 
 type SunburstDefinitionRequestRumQueryComputeQueryObservation struct {
@@ -21441,6 +21983,9 @@ type TimeseriesDefinitionRequestQueryObservation struct {
 
 	// The process query using formulas and functions.
 	ProcessQuery []TimeseriesDefinitionRequestQueryProcessQueryObservation `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	SLOQuery []TimeseriesDefinitionRequestQuerySLOQueryObservation `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type TimeseriesDefinitionRequestQueryParameters struct {
@@ -21464,6 +22009,10 @@ type TimeseriesDefinitionRequestQueryParameters struct {
 	// The process query using formulas and functions.
 	// +kubebuilder:validation:Optional
 	ProcessQuery []TimeseriesDefinitionRequestQueryProcessQueryParameters `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	// +kubebuilder:validation:Optional
+	SLOQuery []TimeseriesDefinitionRequestQuerySLOQueryParameters `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type TimeseriesDefinitionRequestQueryProcessQueryObservation struct {
@@ -21533,6 +22082,54 @@ type TimeseriesDefinitionRequestQueryProcessQueryParameters struct {
 	// The text to use as a filter.
 	// +kubebuilder:validation:Optional
 	TextFilter *string `json:"textFilter,omitempty" tf:"text_filter,omitempty"`
+}
+
+type TimeseriesDefinitionRequestQuerySLOQueryObservation struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	Measure *string `json:"measure,omitempty" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	SLOID *string `json:"sloId,omitempty" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
+}
+
+type TimeseriesDefinitionRequestQuerySLOQueryParameters struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	// +kubebuilder:validation:Required
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	// +kubebuilder:validation:Optional
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	// +kubebuilder:validation:Required
+	Measure *string `json:"measure" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	// +kubebuilder:validation:Required
+	SLOID *string `json:"sloId" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	// +kubebuilder:validation:Optional
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
 }
 
 type TimeseriesDefinitionRequestRumQueryComputeQueryObservation struct {
@@ -23161,6 +23758,9 @@ type ToplistDefinitionRequestQueryObservation struct {
 
 	// The process query using formulas and functions.
 	ProcessQuery []ToplistDefinitionRequestQueryProcessQueryObservation `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	SLOQuery []ToplistDefinitionRequestQuerySLOQueryObservation `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type ToplistDefinitionRequestQueryParameters struct {
@@ -23184,6 +23784,10 @@ type ToplistDefinitionRequestQueryParameters struct {
 	// The process query using formulas and functions.
 	// +kubebuilder:validation:Optional
 	ProcessQuery []ToplistDefinitionRequestQueryProcessQueryParameters `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	// +kubebuilder:validation:Optional
+	SLOQuery []ToplistDefinitionRequestQuerySLOQueryParameters `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type ToplistDefinitionRequestQueryProcessQueryObservation struct {
@@ -23253,6 +23857,54 @@ type ToplistDefinitionRequestQueryProcessQueryParameters struct {
 	// The text to use as a filter.
 	// +kubebuilder:validation:Optional
 	TextFilter *string `json:"textFilter,omitempty" tf:"text_filter,omitempty"`
+}
+
+type ToplistDefinitionRequestQuerySLOQueryObservation struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	Measure *string `json:"measure,omitempty" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	SLOID *string `json:"sloId,omitempty" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
+}
+
+type ToplistDefinitionRequestQuerySLOQueryParameters struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	// +kubebuilder:validation:Required
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	// +kubebuilder:validation:Optional
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	// +kubebuilder:validation:Required
+	Measure *string `json:"measure" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	// +kubebuilder:validation:Required
+	SLOID *string `json:"sloId" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	// +kubebuilder:validation:Optional
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
 }
 
 type ToplistDefinitionRequestRumQueryComputeQueryObservation struct {
@@ -24342,6 +24994,9 @@ type TreemapDefinitionRequestQueryObservation struct {
 
 	// The process query using formulas and functions.
 	ProcessQuery []TreemapDefinitionRequestQueryProcessQueryObservation `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	SLOQuery []TreemapDefinitionRequestQuerySLOQueryObservation `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type TreemapDefinitionRequestQueryParameters struct {
@@ -24365,6 +25020,10 @@ type TreemapDefinitionRequestQueryParameters struct {
 	// The process query using formulas and functions.
 	// +kubebuilder:validation:Optional
 	ProcessQuery []TreemapDefinitionRequestQueryProcessQueryParameters `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	// +kubebuilder:validation:Optional
+	SLOQuery []TreemapDefinitionRequestQuerySLOQueryParameters `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type TreemapDefinitionRequestQueryProcessQueryObservation struct {
@@ -24434,6 +25093,54 @@ type TreemapDefinitionRequestQueryProcessQueryParameters struct {
 	// The text to use as a filter.
 	// +kubebuilder:validation:Optional
 	TextFilter *string `json:"textFilter,omitempty" tf:"text_filter,omitempty"`
+}
+
+type TreemapDefinitionRequestQuerySLOQueryObservation struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	Measure *string `json:"measure,omitempty" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	SLOID *string `json:"sloId,omitempty" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
+}
+
+type TreemapDefinitionRequestQuerySLOQueryParameters struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	// +kubebuilder:validation:Required
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	// +kubebuilder:validation:Optional
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	// +kubebuilder:validation:Required
+	Measure *string `json:"measure" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	// +kubebuilder:validation:Required
+	SLOID *string `json:"sloId" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	// +kubebuilder:validation:Optional
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
 }
 
 type ViewObservation struct {
@@ -26514,6 +27221,9 @@ type WidgetListStreamDefinitionRequestQueryObservation struct {
 	// Widget query.
 	QueryString *string `json:"queryString,omitempty" tf:"query_string,omitempty"`
 
+	// The facet and order to sort the data, for example: `{"column": "time", "order": "desc"}`.
+	Sort []ListStreamDefinitionRequestQuerySortObservation `json:"sort,omitempty" tf:"sort,omitempty"`
+
 	// Storage location (private beta).
 	Storage *string `json:"storage,omitempty" tf:"storage,omitempty"`
 }
@@ -26535,6 +27245,10 @@ type WidgetListStreamDefinitionRequestQueryParameters struct {
 	// Widget query.
 	// +kubebuilder:validation:Optional
 	QueryString *string `json:"queryString,omitempty" tf:"query_string,omitempty"`
+
+	// The facet and order to sort the data, for example: `{"column": "time", "order": "desc"}`.
+	// +kubebuilder:validation:Optional
+	Sort []ListStreamDefinitionRequestQuerySortParameters `json:"sort,omitempty" tf:"sort,omitempty"`
 
 	// Storage location (private beta).
 	// +kubebuilder:validation:Optional
@@ -26861,7 +27575,7 @@ type WidgetObservation struct {
 	// The definition for a Query Value widget.
 	QueryValueDefinition []WidgetQueryValueDefinitionObservation `json:"queryValueDefinition,omitempty" tf:"query_value_definition,omitempty"`
 
-	// The definition for a Run Workflow widget. **NOTE:** Currently in private beta. To request access, contact Support at support@datadoghq.com.
+	// The definition for a Run Workflow widget.
 	RunWorkflowDefinition []WidgetRunWorkflowDefinitionObservation `json:"runWorkflowDefinition,omitempty" tf:"run_workflow_definition,omitempty"`
 
 	// The definition for an SLO (Service Level Objective) List widget.
@@ -26980,7 +27694,7 @@ type WidgetParameters struct {
 	// +kubebuilder:validation:Optional
 	QueryValueDefinition []WidgetQueryValueDefinitionParameters `json:"queryValueDefinition,omitempty" tf:"query_value_definition,omitempty"`
 
-	// The definition for a Run Workflow widget. **NOTE:** Currently in private beta. To request access, contact Support at support@datadoghq.com.
+	// The definition for a Run Workflow widget.
 	// +kubebuilder:validation:Optional
 	RunWorkflowDefinition []WidgetRunWorkflowDefinitionParameters `json:"runWorkflowDefinition,omitempty" tf:"run_workflow_definition,omitempty"`
 
@@ -28091,6 +28805,9 @@ type WidgetQueryTableDefinitionRequestQueryObservation struct {
 
 	// The process query using formulas and functions.
 	ProcessQuery []WidgetQueryTableDefinitionRequestQueryProcessQueryObservation `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	SLOQuery []WidgetQueryTableDefinitionRequestQuerySLOQueryObservation `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type WidgetQueryTableDefinitionRequestQueryParameters struct {
@@ -28114,6 +28831,10 @@ type WidgetQueryTableDefinitionRequestQueryParameters struct {
 	// The process query using formulas and functions.
 	// +kubebuilder:validation:Optional
 	ProcessQuery []WidgetQueryTableDefinitionRequestQueryProcessQueryParameters `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	// +kubebuilder:validation:Optional
+	SLOQuery []WidgetQueryTableDefinitionRequestQuerySLOQueryParameters `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type WidgetQueryTableDefinitionRequestQueryProcessQueryObservation struct {
@@ -28183,6 +28904,54 @@ type WidgetQueryTableDefinitionRequestQueryProcessQueryParameters struct {
 	// The text to use as a filter.
 	// +kubebuilder:validation:Optional
 	TextFilter *string `json:"textFilter,omitempty" tf:"text_filter,omitempty"`
+}
+
+type WidgetQueryTableDefinitionRequestQuerySLOQueryObservation struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	Measure *string `json:"measure,omitempty" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	SLOID *string `json:"sloId,omitempty" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
+}
+
+type WidgetQueryTableDefinitionRequestQuerySLOQueryParameters struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	// +kubebuilder:validation:Required
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	// +kubebuilder:validation:Optional
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	// +kubebuilder:validation:Required
+	Measure *string `json:"measure" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	// +kubebuilder:validation:Required
+	SLOID *string `json:"sloId" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	// +kubebuilder:validation:Optional
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
 }
 
 type WidgetQueryTableDefinitionRequestRumQueryComputeQueryObservation struct {
@@ -29588,6 +30357,9 @@ type WidgetQueryValueDefinitionRequestQueryObservation struct {
 
 	// The process query using formulas and functions.
 	ProcessQuery []WidgetQueryValueDefinitionRequestQueryProcessQueryObservation `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	SLOQuery []WidgetQueryValueDefinitionRequestQuerySLOQueryObservation `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type WidgetQueryValueDefinitionRequestQueryParameters struct {
@@ -29611,6 +30383,10 @@ type WidgetQueryValueDefinitionRequestQueryParameters struct {
 	// The process query using formulas and functions.
 	// +kubebuilder:validation:Optional
 	ProcessQuery []WidgetQueryValueDefinitionRequestQueryProcessQueryParameters `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	// +kubebuilder:validation:Optional
+	SLOQuery []WidgetQueryValueDefinitionRequestQuerySLOQueryParameters `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type WidgetQueryValueDefinitionRequestQueryProcessQueryObservation struct {
@@ -29680,6 +30456,54 @@ type WidgetQueryValueDefinitionRequestQueryProcessQueryParameters struct {
 	// The text to use as a filter.
 	// +kubebuilder:validation:Optional
 	TextFilter *string `json:"textFilter,omitempty" tf:"text_filter,omitempty"`
+}
+
+type WidgetQueryValueDefinitionRequestQuerySLOQueryObservation struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	Measure *string `json:"measure,omitempty" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	SLOID *string `json:"sloId,omitempty" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
+}
+
+type WidgetQueryValueDefinitionRequestQuerySLOQueryParameters struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	// +kubebuilder:validation:Required
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	// +kubebuilder:validation:Optional
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	// +kubebuilder:validation:Required
+	Measure *string `json:"measure" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	// +kubebuilder:validation:Required
+	SLOID *string `json:"sloId" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	// +kubebuilder:validation:Optional
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
 }
 
 type WidgetQueryValueDefinitionRequestRumQueryComputeQueryObservation struct {
@@ -30132,7 +30956,7 @@ type WidgetSLOListDefinitionRequestQueryObservation struct {
 	QueryString *string `json:"queryString,omitempty" tf:"query_string,omitempty"`
 
 	// The facet and order to sort the data, for example: `{"column": "status.sli", "order": "desc"}`.
-	Sort []RequestQuerySortObservation `json:"sort,omitempty" tf:"sort,omitempty"`
+	Sort []SLOListDefinitionRequestQuerySortObservation `json:"sort,omitempty" tf:"sort,omitempty"`
 }
 
 type WidgetSLOListDefinitionRequestQueryParameters struct {
@@ -30147,7 +30971,7 @@ type WidgetSLOListDefinitionRequestQueryParameters struct {
 
 	// The facet and order to sort the data, for example: `{"column": "status.sli", "order": "desc"}`.
 	// +kubebuilder:validation:Optional
-	Sort []RequestQuerySortParameters `json:"sort,omitempty" tf:"sort,omitempty"`
+	Sort []SLOListDefinitionRequestQuerySortParameters `json:"sort,omitempty" tf:"sort,omitempty"`
 }
 
 type WidgetScatterplotDefinitionCustomLinkObservation struct {
@@ -31494,6 +32318,9 @@ type WidgetSunburstDefinitionRequestQueryObservation struct {
 
 	// The process query using formulas and functions.
 	ProcessQuery []WidgetSunburstDefinitionRequestQueryProcessQueryObservation `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	SLOQuery []WidgetSunburstDefinitionRequestQuerySLOQueryObservation `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type WidgetSunburstDefinitionRequestQueryParameters struct {
@@ -31517,6 +32344,10 @@ type WidgetSunburstDefinitionRequestQueryParameters struct {
 	// The process query using formulas and functions.
 	// +kubebuilder:validation:Optional
 	ProcessQuery []WidgetSunburstDefinitionRequestQueryProcessQueryParameters `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	// +kubebuilder:validation:Optional
+	SLOQuery []WidgetSunburstDefinitionRequestQuerySLOQueryParameters `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type WidgetSunburstDefinitionRequestQueryProcessQueryObservation struct {
@@ -31586,6 +32417,54 @@ type WidgetSunburstDefinitionRequestQueryProcessQueryParameters struct {
 	// The text to use as a filter.
 	// +kubebuilder:validation:Optional
 	TextFilter *string `json:"textFilter,omitempty" tf:"text_filter,omitempty"`
+}
+
+type WidgetSunburstDefinitionRequestQuerySLOQueryObservation struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	Measure *string `json:"measure,omitempty" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	SLOID *string `json:"sloId,omitempty" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
+}
+
+type WidgetSunburstDefinitionRequestQuerySLOQueryParameters struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	// +kubebuilder:validation:Required
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	// +kubebuilder:validation:Optional
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	// +kubebuilder:validation:Required
+	Measure *string `json:"measure" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	// +kubebuilder:validation:Required
+	SLOID *string `json:"sloId" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	// +kubebuilder:validation:Optional
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
 }
 
 type WidgetSunburstDefinitionRequestRumQueryComputeQueryObservation struct {
@@ -33133,6 +34012,9 @@ type WidgetTimeseriesDefinitionRequestQueryObservation struct {
 
 	// The process query using formulas and functions.
 	ProcessQuery []WidgetTimeseriesDefinitionRequestQueryProcessQueryObservation `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	SLOQuery []WidgetTimeseriesDefinitionRequestQuerySLOQueryObservation `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type WidgetTimeseriesDefinitionRequestQueryParameters struct {
@@ -33156,6 +34038,10 @@ type WidgetTimeseriesDefinitionRequestQueryParameters struct {
 	// The process query using formulas and functions.
 	// +kubebuilder:validation:Optional
 	ProcessQuery []WidgetTimeseriesDefinitionRequestQueryProcessQueryParameters `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	// +kubebuilder:validation:Optional
+	SLOQuery []WidgetTimeseriesDefinitionRequestQuerySLOQueryParameters `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type WidgetTimeseriesDefinitionRequestQueryProcessQueryObservation struct {
@@ -33225,6 +34111,54 @@ type WidgetTimeseriesDefinitionRequestQueryProcessQueryParameters struct {
 	// The text to use as a filter.
 	// +kubebuilder:validation:Optional
 	TextFilter *string `json:"textFilter,omitempty" tf:"text_filter,omitempty"`
+}
+
+type WidgetTimeseriesDefinitionRequestQuerySLOQueryObservation struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	Measure *string `json:"measure,omitempty" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	SLOID *string `json:"sloId,omitempty" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
+}
+
+type WidgetTimeseriesDefinitionRequestQuerySLOQueryParameters struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	// +kubebuilder:validation:Required
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	// +kubebuilder:validation:Optional
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	// +kubebuilder:validation:Required
+	Measure *string `json:"measure" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	// +kubebuilder:validation:Required
+	SLOID *string `json:"sloId" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	// +kubebuilder:validation:Optional
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
 }
 
 type WidgetTimeseriesDefinitionRequestRumQueryComputeQueryObservation struct {
@@ -34812,6 +35746,9 @@ type WidgetToplistDefinitionRequestQueryObservation struct {
 
 	// The process query using formulas and functions.
 	ProcessQuery []WidgetToplistDefinitionRequestQueryProcessQueryObservation `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	SLOQuery []WidgetToplistDefinitionRequestQuerySLOQueryObservation `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type WidgetToplistDefinitionRequestQueryParameters struct {
@@ -34835,6 +35772,10 @@ type WidgetToplistDefinitionRequestQueryParameters struct {
 	// The process query using formulas and functions.
 	// +kubebuilder:validation:Optional
 	ProcessQuery []WidgetToplistDefinitionRequestQueryProcessQueryParameters `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	// +kubebuilder:validation:Optional
+	SLOQuery []WidgetToplistDefinitionRequestQuerySLOQueryParameters `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type WidgetToplistDefinitionRequestQueryProcessQueryObservation struct {
@@ -34904,6 +35845,54 @@ type WidgetToplistDefinitionRequestQueryProcessQueryParameters struct {
 	// The text to use as a filter.
 	// +kubebuilder:validation:Optional
 	TextFilter *string `json:"textFilter,omitempty" tf:"text_filter,omitempty"`
+}
+
+type WidgetToplistDefinitionRequestQuerySLOQueryObservation struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	Measure *string `json:"measure,omitempty" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	SLOID *string `json:"sloId,omitempty" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
+}
+
+type WidgetToplistDefinitionRequestQuerySLOQueryParameters struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	// +kubebuilder:validation:Required
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	// +kubebuilder:validation:Optional
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	// +kubebuilder:validation:Required
+	Measure *string `json:"measure" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	// +kubebuilder:validation:Required
+	SLOID *string `json:"sloId" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	// +kubebuilder:validation:Optional
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
 }
 
 type WidgetToplistDefinitionRequestRumQueryComputeQueryObservation struct {
@@ -35993,6 +36982,9 @@ type WidgetTreemapDefinitionRequestQueryObservation struct {
 
 	// The process query using formulas and functions.
 	ProcessQuery []WidgetTreemapDefinitionRequestQueryProcessQueryObservation `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	SLOQuery []WidgetTreemapDefinitionRequestQuerySLOQueryObservation `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type WidgetTreemapDefinitionRequestQueryParameters struct {
@@ -36016,6 +37008,10 @@ type WidgetTreemapDefinitionRequestQueryParameters struct {
 	// The process query using formulas and functions.
 	// +kubebuilder:validation:Optional
 	ProcessQuery []WidgetTreemapDefinitionRequestQueryProcessQueryParameters `json:"processQuery,omitempty" tf:"process_query,omitempty"`
+
+	// The slo query using formulas and functions.
+	// +kubebuilder:validation:Optional
+	SLOQuery []WidgetTreemapDefinitionRequestQuerySLOQueryParameters `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 }
 
 type WidgetTreemapDefinitionRequestQueryProcessQueryObservation struct {
@@ -36085,6 +37081,54 @@ type WidgetTreemapDefinitionRequestQueryProcessQueryParameters struct {
 	// The text to use as a filter.
 	// +kubebuilder:validation:Optional
 	TextFilter *string `json:"textFilter,omitempty" tf:"text_filter,omitempty"`
+}
+
+type WidgetTreemapDefinitionRequestQuerySLOQueryObservation struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	Measure *string `json:"measure,omitempty" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	SLOID *string `json:"sloId,omitempty" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
+}
+
+type WidgetTreemapDefinitionRequestQuerySLOQueryParameters struct {
+
+	// The data source for slo queries. Valid values are `slo`.
+	// +kubebuilder:validation:Required
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// Group mode to query measures. Valid values are `overall`, `components`.
+	// +kubebuilder:validation:Optional
+	GroupMode *string `json:"groupMode,omitempty" tf:"group_mode,omitempty"`
+
+	// SLO measures queries. Valid values are `good_events`, `bad_events`, `slo_status`, `error_budget_remaining`, `burn_rate`, `error_budget_burndown`.
+	// +kubebuilder:validation:Required
+	Measure *string `json:"measure" tf:"measure,omitempty"`
+
+	// The name of query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// ID of an SLO to query.
+	// +kubebuilder:validation:Required
+	SLOID *string `json:"sloId" tf:"slo_id,omitempty"`
+
+	// type of the SLO to query. Valid values are `metric`.
+	// +kubebuilder:validation:Optional
+	SLOQueryType *string `json:"sloQueryType,omitempty" tf:"slo_query_type,omitempty"`
 }
 
 type WidgetWidgetLayoutObservation struct {

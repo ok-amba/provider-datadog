@@ -10,7 +10,7 @@ resources:
             access_key: (String, Sensitive) Access key for SIGV4 authentication.
             access_token_url: (String) Access token url for oauth-client or oauth-rop authentication.
             allow_failure: (Boolean) Determines whether or not to continue with test if this step fails.
-            allow_insecure: (Boolean) Allows loading insecure content for an HTTP test.
+            allow_insecure: (Boolean) Allows loading insecure content for an HTTP request in an API test or in a multistep API test step.
             api_step: (Block List) Steps for multistep api tests (see below for nested schema)
             application_id: (String) RUM application ID used to collect RUM data for the browser test.
             assertion: (Block List) Assertions used for the test. Multiple assertion blocks are allowed with the structure below. (see below for nested schema)
@@ -60,7 +60,7 @@ resources:
             host: (String) Host name to perform the test with.
             http_version: (String) HTTP version to use for a Synthetics API test. Valid values are http1, http2, any.
             id: (String) The ID of this resource.
-            ignore_server_certificate_error: (Boolean) Ignore server certificate error.
+            ignore_server_certificate_error: (Boolean) Ignore server certificate error for browser tests.
             initial_navigation_timeout: (Number) Timeout before declaring the initial step as failed (in seconds) for browser tests.
             interval: (Number) Interval between a failed test and the next retry in milliseconds.
             is_critical: (Boolean) Determines whether or not to consider the entire test as failed if this step fails. Can be used only if allow_failure is true.
@@ -106,7 +106,7 @@ resources:
             scheduling: '(Block List, Max: 1) Object containing timeframes and timezone used for advanced scheduling. (see below for nested schema)'
             scope: (String) Scope for oauth-client or oauth-rop authentication.
             secret_key: (String, Sensitive) Secret key for SIGV4 authentication.
-            secure: (Boolean) Whether the value of this variable will be obfuscated in test results.
+            secure: (Boolean) Determines whether or not the extracted value will be obfuscated.
             servername: (String) For SSL tests, it specifies on which server you want to initiate the TLS handshake, allowing the server to present one of multiple possible certificates on the same IP address and TCP port number.
             service: (String) The gRPC service on which you want to perform the gRPC call.
             service_name: (String) Service name for SIGV4 authentication.
@@ -289,7 +289,7 @@ resources:
             custom_fg_color: (String) The color palette to apply to the foreground, same values available as palette.
             custom_link: (Block List) A nested block describing a custom link. Multiple custom_link blocks are allowed using the structure below. (see below for nested schema)
             custom_unit: (String) The unit for the value displayed in the widget.
-            dashboard_lists: (Set of Number) A list of dashboard lists this dashboard belongs to.
+            dashboard_lists: (Set of Number) A list of dashboard lists this dashboard belongs to. This attribute should not be set if managing the corresponding dashboard lists using Terraform as it causes inconsistent behavior.
             dashboard_lists_removed: (Set of Number) A list of dashboard lists this dashboard should be removed from. Internal only.
             data_source: (String) The data source for APM Dependency Stats queries. Valid values are apm_dependency_stats.
             default: (String, Deprecated) The default value for the template variable on dashboard load. Cannot be used in conjunction with defaults. Deprecated. Use defaults instead.
@@ -323,6 +323,7 @@ resources:
             group: (String) The check group to use in the widget.
             group_by: (Block List) Multiple group_by blocks are allowed using the structure below. (see below for nested schema)
             group_definition: '(Block List, Max: 1) The definition for a Group widget. (see below for nested schema)'
+            group_mode: (String) Group mode to query measures. Valid values are overall, components.
             grouping: (String) The kind of grouping to use. Valid values are check, cluster.
             has_background: (Boolean) Whether to display a background or not.
             has_border: (Boolean) Whether to display a border or not.
@@ -370,6 +371,7 @@ resources:
             margin: '(String) The margins to use around the image. Note: small and large values are deprecated. Valid values are sm, md, lg, small, large.'
             marker: (Block List) A nested block describing the marker to use when displaying the widget. The structure of this block is described below. Multiple marker blocks are allowed within a given tile_def block. (see below for nested schema)
             max: (String) Specify the maximum value to show on the Y-axis.
+            measure: (String) SLO measures queries. Valid values are good_events, bad_events, slo_status, error_budget_remaining, burn_rate, error_budget_burndown.
             message_display: (String) The number of log lines to display. Valid values are inline, expanded-md, expanded-lg.
             metadata: (Block List) Used to define expression aliases. Multiple metadata blocks are allowed using the structure below. (see below for nested schema)
             metric: (String) The metric from the request to correlate with this conditional format.
@@ -413,7 +415,7 @@ resources:
             right_yaxis: '(Block List, Max: 1) A nested block describing the right Y-Axis Controls. See the on_right_yaxis property for which request will use this axis. The structure of this block is described below. (see below for nested schema)'
             row_type: (String) The level of detail for the request. Valid values are service, resource, span.
             rum_query: '(Block List, Max: 1) The query to use for this widget. (see below for nested schema)'
-            run_workflow_definition: '(Block List, Max: 1) The definition for a Run Workflow widget. NOTE: Currently in private beta. To request access, contact Support at support@datadoghq.com. (see below for nested schema)'
+            run_workflow_definition: '(Block List, Max: 1) The definition for a Run Workflow widget. (see below for nested schema)'
             scale: '(String) Specify the scale type, options: linear, log, pow, sqrt.'
             scatterplot_definition: '(Block List, Max: 1) The definition for a Scatterplot widget. (see below for nested schema)'
             scatterplot_table: (Block List) Scatterplot request containing formulas and functions. (see below for nested schema)
@@ -443,8 +445,10 @@ resources:
             size: (Block List) The query used to size the map. Exactly one nested block is allowed using the structure below (exactly one of q, apm_query, log_query, rum_query, security_query or process_query is required within the request block). (see below for nested schema)
             size_format: (String) The size of the widget. Valid values are small, medium, large.
             sizing: '(String) The preferred method to adapt the dimensions of the image. The values are based on the image object-fit CSS properties. Note: zoom, fit and center values are deprecated. Valid values are fill, contain, cover, none, scale-down, zoom, fit, center.'
-            slo_id: (String) The ID of the service level objective used by the widget.
+            slo_id: (String) ID of an SLO to query.
             slo_list_definition: '(Block List, Max: 1) The definition for an SLO (Service Level Objective) List widget. (see below for nested schema)'
+            slo_query: '(Block List, Max: 1) The slo query using formulas and functions. (see below for nested schema)'
+            slo_query_type: (String) type of the SLO to query. Valid values are metric.
             sort: '(Block List, Max: 1) The options for sorting group by results. (see below for nested schema)'
             sort_query: '(Block List, Max: 1) A list of exactly one element describing the sort query to use. (see below for nested schema)'
             span_name: (String) APM span name
@@ -502,7 +506,7 @@ resources:
         title: datadog_dashboard_json Resource - terraform-provider-datadog
         argumentDocs:
             dashboard: (String) The JSON formatted definition of the Dashboard.
-            dashboard_lists: (Set of Number) The list of dashboard lists this dashboard belongs to.
+            dashboard_lists: (Set of Number) A list of dashboard lists this dashboard belongs to. This attribute should not be set if managing the corresponding dashboard lists using Terraform as it causes inconsistent behavior.
             dashboard_lists_removed: (Set of Number) The list of dashboard lists this dashboard should be removed from. Internal only.
             id: (String) The ID of this resource.
             url: (String) The URL of the dashboard.
@@ -691,7 +695,7 @@ resources:
             - terraform import datadog_integration_fastly_service.new_list "service-id"
     datadog_integration_gcp Resource - terraform-provider-datadog:
         subCategory: ""
-        description: Provides a Datadog - Google Cloud Platform integration resource. This can be used to create and manage Datadog - Google Cloud Platform integration.
+        description: This resource is deprecated — use the datadog_integration_gcp_sts resource instead. Provides a Datadog - Google Cloud Platform integration resource. This can be used to create and manage Datadog - Google Cloud Platform integration.
         name: datadog_integration_gcp Resource - terraform-provider-datadog
         title: datadog_integration_gcp Resource - terraform-provider-datadog
         argumentDocs:
@@ -708,6 +712,20 @@ resources:
             - |-
               # Google Cloud Platform integrations can be imported using their project ID, e.g.
               terraform import datadog_integration_gcp.awesome_gcp_project_integration project_id
+    datadog_integration_gcp_sts Resource - terraform-provider-datadog:
+        subCategory: ""
+        description: Provides a Datadog Integration GCP Sts resource. This can be used to create and manage Datadog - Google Cloud Platform integration.
+        name: datadog_integration_gcp_sts Resource - terraform-provider-datadog
+        title: datadog_integration_gcp_sts Resource - terraform-provider-datadog
+        argumentDocs:
+            automute: (Boolean) Silence monitors for expected GCE instance shutdowns.
+            client_email: (String) Your service account email address.
+            delegate_account_email: (String) Datadog's STS Delegate Email.
+            host_filters: (Set of String) Your Host Filters.
+            id: (String) The ID of this resource.
+            is_cspm_enabled: (Boolean) When enabled, Datadog performs configuration checks across your Google Cloud environment by continuously scanning every resource.
+        importStatements:
+            - terraform import datadog_integration_gcp_sts.foo "9c303af3-b963-45e0-8c8f-469b9e1a213f"
     datadog_integration_opsgenie_service_object Resource - terraform-provider-datadog:
         subCategory: ""
         description: Resource for interacting with Datadog Opsgenie Service API.
@@ -1032,7 +1050,7 @@ resources:
             tags: '(Set of String) A list of tags to associate with your monitor. This can help you categorize and filter monitors in the manage monitors page of the UI. Note: it''s not currently possible to filter by these tags when querying via the API'
             timeout_h: (Number) The number of hours of the monitor not reporting data before it automatically resolves from a triggered state. The minimum allowed value is 0 hours. The maximum allowed value is 24 hours.
             trigger_window: (String) Describes how long a metric must be anomalous before an alert triggers.
-            type: '(String) The type of the monitor. The mapping from these types to the types found in the Datadog Web UI can be found in the Datadog API documentation page. Note: The monitor type cannot be changed after a monitor is created. Valid values are composite, event alert, log alert, metric alert, process alert, query alert, rum alert, service check, synthetics alert, trace-analytics alert, slo alert, event-v2 alert, audit alert, ci-pipelines alert, ci-tests alert, error-tracking alert.'
+            type: '(String) The type of the monitor. The mapping from these types to the types found in the Datadog Web UI can be found in the Datadog API documentation page. Note: The monitor type cannot be changed after a monitor is created. Valid values are composite, event alert, log alert, metric alert, process alert, query alert, rum alert, service check, synthetics alert, trace-analytics alert, slo alert, event-v2 alert, audit alert, ci-pipelines alert, ci-tests alert, error-tracking alert, database-monitoring alert.'
             unknown: (String) The monitor UNKNOWN threshold. Only supported in monitor type service check. Must be a number.
             validate: (Boolean) If set to false, skip the validation call done during plan.
             variables: '(Block List, Max: 1) (see below for nested schema)'
@@ -1089,6 +1107,19 @@ resources:
             settings: '(Block List, Max: 1) Organization settings (see below for nested schema)'
         importStatements:
             - terraform import datadog_organization_settings.organization 11111111-2222-3333-4444-555555555555
+    datadog_restriction_policy Resource - terraform-provider-datadog:
+        subCategory: ""
+        description: Provides a Datadog RestrictionPolicy resource. This can be used to create and manage Datadog restriction policies. See this page for more details https://docs.datadoghq.com/api/latest/restriction-policies/#supported-relations-for-resources.
+        name: datadog_restriction_policy Resource - terraform-provider-datadog
+        title: datadog_restriction_policy Resource - terraform-provider-datadog
+        argumentDocs:
+            bindings: (Block Set) (see below for nested schema)
+            id: (String) The ID of this resource.
+            principals: '(Set of String) An array of principals. A principal is a subject or group of subjects. Each principal is formatted as type:id. Supported types: role and org. The org ID can be obtained through the api/v2/users API.'
+            relation: (String) The role/level of access.
+            resource_id: (String) Identifier for the resource, formatted as resource_type:resource_id.
+        importStatements:
+            - terraform import datadog_restriction_policy.new_list ""
     datadog_role Resource - terraform-provider-datadog:
         subCategory: ""
         description: Provides a Datadog role resource. This can be used to create and manage Datadog roles.
@@ -1267,6 +1298,22 @@ resources:
             roles: (Set of String) A list a role IDs to assign to the service account.
         importStatements:
             - terraform import datadog_service_account.example_sa 6f1b44c0-30b2-11eb-86bc-279f7c1ebaa4
+    datadog_service_account_application_key Resource - terraform-provider-datadog:
+        subCategory: ""
+        description: Provides a Datadog service_account_application_key resource. This can be used to create and manage Datadog service account application keys.
+        name: datadog_service_account_application_key Resource - terraform-provider-datadog
+        title: datadog_service_account_application_key Resource - terraform-provider-datadog
+        argumentDocs:
+            created_at: (String) Creation date of the application key.
+            id: (String) The ID of this resource.
+            key: (String, Sensitive) The value of the service account application key. This value cannot be imported.
+            last4: (String) The last four characters of the application key.
+            name: (String) Name of the application key.
+            service_account_id: (String) ID of the service account that owns this key.
+        importStatements:
+            - |-
+              # Importing a service account's application key cannot import the value of the key.
+              terraform import datadog_service_account_application_key.this "<service_account_id>:<application_key_id>"
     datadog_service_definition_yaml Resource - terraform-provider-datadog:
         subCategory: ""
         description: Provides a Datadog service definition resource. This can be used to create and manage Datadog service definitions in the service catalog using the YAML/JSON definition.
@@ -1324,6 +1371,36 @@ resources:
             timezone: (String) The timezone to display in the UI for the correction times (defaults to "UTC")
         importStatements:
             - terraform import datadog_slo_correction.testing_slo_correction 11111111-3fee-11eb-8a13-77cd9f15119e
+    datadog_spans_metric Resource - terraform-provider-datadog:
+        subCategory: ""
+        description: Provides a Datadog SpansMetric resource. This can be used to create and manage Datadog spans_metric.
+        name: datadog_spans_metric Resource - terraform-provider-datadog
+        title: datadog_spans_metric Resource - terraform-provider-datadog
+        argumentDocs:
+            aggregation_type: (String) The type of aggregation to use. This field can't be updated after creation.
+            compute: (Block, Optional) (see below for nested schema)
+            filter: (Block, Optional) (see below for nested schema)
+            group_by: (Block Set) (see below for nested schema)
+            id: (String) The ID of this resource.
+            include_percentiles: (Boolean) Toggle to include or exclude percentile aggregations for distribution metrics. Only present when the aggregation_type is distribution.
+            name: (String) The name of the span-based metric. This field can't be updated after creation.
+            path: (String) The path to the value the span-based metric will aggregate on (only used if the aggregation type is a "distribution"). This field can't be updated after creation.
+            query: (String) The search query - following the span search syntax.
+            tag_name: (String) Eventual name of the tag that gets created. By default, the path attribute is used as the tag name.
+        importStatements:
+            - terraform import datadog_spans_metric.testing_spans_metric testing.span.metric
+    datadog_synthetics_concurrency_cap Resource - terraform-provider-datadog:
+        subCategory: ""
+        description: Provides a Datadog Synthetics On Demand Concurrency Cap API resource. This can be used to manage the Concurrency Cap for Synthetic tests.
+        name: datadog_synthetics_concurrency_cap Resource - terraform-provider-datadog
+        title: datadog_synthetics_concurrency_cap Resource - terraform-provider-datadog
+        argumentDocs:
+            id: (String) The ID of this resource.
+            on_demand_concurrency_cap: (Number) Value of the on-demand concurrency cap, customizing the number of Synthetic tests run in parallel.
+        importStatements:
+            - |-
+              # The Synthetics concurrency cap can be imported. <name> can be whatever you specify in your code. Datadog does not store the name on the server.
+              terraform import datadog_synthetics_concurrency_cap.this <name>
     datadog_synthetics_global_variable Resource - terraform-provider-datadog:
         subCategory: ""
         description: Provides a Datadog synthetics global variable resource. This can be used to create and manage Datadog synthetics global variables.
@@ -1368,6 +1445,49 @@ resources:
             - |-
               # Synthetics private locations can be imported using their string ID, e.g.
               terraform import datadog_synthetics_private_location.bar pl:private-location-name-abcdef123456
+    datadog_team Resource - terraform-provider-datadog:
+        subCategory: ""
+        description: Provides a Datadog Team resource. This can be used to create and manage Datadog team.
+        name: datadog_team Resource - terraform-provider-datadog
+        title: datadog_team Resource - terraform-provider-datadog
+        argumentDocs:
+            description: (String) Free-form markdown description/content for the team's homepage.
+            handle: (String) The team's identifier
+            id: (String) The ID of this resource.
+            link_count: (Number) The number of links belonging to the team.
+            name: (String) The name of the team.
+            summary: (String) A brief summary of the team, derived from the description.
+            user_count: (Number) The number of users belonging to the team.
+        importStatements:
+            - terraform import datadog_team.foo "bf064c56-edb0-11ed-ae91-da7ad0900002"
+    datadog_team_link Resource - terraform-provider-datadog:
+        subCategory: ""
+        description: Provides a Datadog TeamLink resource. This can be used to create and manage Datadog team_link.
+        name: datadog_team_link Resource - terraform-provider-datadog
+        title: datadog_team_link Resource - terraform-provider-datadog
+        argumentDocs:
+            id: (String) The ID of this resource.
+            label: (String) The link's label.
+            position: (Number) The link's position, used to sort links for the team.
+            team_id: (String) ID of the team the link is associated with.
+            url: (String) The URL for the link.
+        importStatements:
+            - terraform import datadog_team_link.new_list "${team_id}:${resource_id}"
+    datadog_team_membership Resource - terraform-provider-datadog:
+        subCategory: ""
+        description: Provides a Datadog TeamMembership resource. This can be used to create and manage Datadog team_membership.
+        name: datadog_team_membership Resource - terraform-provider-datadog
+        title: datadog_team_membership Resource - terraform-provider-datadog
+        argumentDocs:
+            id: (String) The ID of this resource.
+            role: (String) The user's role within the team. Valid values are admin.
+            team_id: (String) ID of the team the team membership is associated with.
+            user_id: (String) The ID of the user.
+        importStatements:
+            - |-
+              # This resource is imported using team_id and user_id seperated by `:`.
+
+              terraform import datadog_team_membership.foo "${team_id}:${user_id}"
     datadog_user Resource - terraform-provider-datadog:
         subCategory: ""
         description: Provides a Datadog user resource. This can be used to create and manage Datadog users.
