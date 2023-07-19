@@ -13,6 +13,7 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"datadog_dashboard":      config.IdentifierFromProvider,
 	"datadog_dashboard_json": config.IdentifierFromProvider,
 	"datadog_authn_mapping":  config.IdentifierFromProvider,
+	"datadog_role": config.IdentifierFromProvider,
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the
