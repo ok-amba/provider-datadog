@@ -1,3 +1,6 @@
+# Terraform docs
+# https://registry.terraform.io/providers/DataDog/datadog/latest/docs/resources/dashboard_json
+
 apiVersion: datadog.upbound.io/v1alpha1
 kind: DashboardJSON
 metadata:
