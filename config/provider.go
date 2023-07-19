@@ -10,6 +10,7 @@ import (
 
 	"github.com/ok-amba/provider-datadog/config/authnmapping"
 	"github.com/ok-amba/provider-datadog/config/dashboards"
+	"github.com/ok-amba/provider-datadog/config/role"
 	ujconfig "github.com/upbound/upjet/pkg/config"
 )
 
@@ -37,6 +38,7 @@ func GetProvider() *ujconfig.Provider {
 		// add custom config functions
 		dashboards.Configure,
 		authnmapping.Configure,
+		role.Configure,
 	} {
 		configure(pc)
 	}
