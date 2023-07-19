@@ -9,8 +9,8 @@ import (
 	_ "embed"
 
 	"github.com/ok-amba/provider-datadog/config/authnmapping"
-	"github.com/ok-amba/provider-datadog/config/role"
 	"github.com/ok-amba/provider-datadog/config/dashboards"
+	"github.com/ok-amba/provider-datadog/config/role"
 	ujconfig "github.com/upbound/upjet/pkg/config"
 )
 
