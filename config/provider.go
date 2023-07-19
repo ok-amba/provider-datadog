@@ -9,6 +9,7 @@ import (
 	_ "embed"
 
 	"github.com/ok-amba/provider-datadog/config/dashboards"
+	"github.com/ok-amba/provider-datadog/config/authnmapping"
 	ujconfig "github.com/upbound/upjet/pkg/config"
 )
 
@@ -35,6 +36,7 @@ func GetProvider() *ujconfig.Provider {
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
 		dashboards.Configure,
+		authnmapping.Configure,
 	} {
 		configure(pc)
 	}

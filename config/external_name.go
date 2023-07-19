@@ -12,6 +12,7 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	// Import requires using a randomly generated ID from provider: nl-2e21sda
 	"datadog_dashboard":      config.IdentifierFromProvider,
 	"datadog_dashboard_json": config.IdentifierFromProvider,
+	"datadog_authn_mapping": config.IdentifierFromProvider,
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the
