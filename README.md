@@ -9,6 +9,8 @@ This provider is using the DataDog Terraform provider version `3.25.0` and has s
 
  - Dashboard
  - Dashboard JSON
+ - SAML Group Mappings
+ - Roles
 
 ### References
 - DataDog Terraform provider <https://registry.terraform.io/providers/DataDog/datadog/latest/docs>
