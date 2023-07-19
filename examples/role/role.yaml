@@ -1,0 +1,17 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: Role
+metadata:
+  name: role-name
+spec:
+  forProvider:
+    #The name of the role within datadog
+    name: role-name
+
+  #Set of objects containing the permission ID and the name of the permissions granted to this role
+    #To get permission ID's from datadog go here: https://docs.datadoghq.com/api/latest/roles/
+    permission:
+      - id: permissionId
+      - id: anotherPermissionId
+
+  providerConfigRef:
+    name: default
