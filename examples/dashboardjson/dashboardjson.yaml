@@ -1,0 +1,31 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: DashboardJSON
+metadata:
+  name: dashboard-name
+spec:
+  forProvider:
+    # The JSON formatted definition of the Dashboard
+    dashboard: |
+      {
+      "viz": "timeseries",
+      "requests": [
+          {
+              "response_format": "timeseries",
+              "queries": [
+                  {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:system.cpu.user{*}"
+                  }
+              ],
+              "type": "line",
+              "style": {
+                  "palette": "dog_classic",
+                  "type": "solid",
+                  "width": "normal"
+              }
+          }
+      ]
+      }
+  defaultConfigRef:
+    name: default
