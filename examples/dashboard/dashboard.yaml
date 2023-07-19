@@ -1,0 +1,25 @@
+# Terraform docs
+# https://registry.terraform.io/providers/DataDog/datadog/latest/docs/resources/dashboard
+# Dashboards within datadog have too many options for it to make sense to doucment it all in this example file, to see more documentation on them go to: package/crds/dasboard.datadog.upbound.io_dashboards.yaml
+
+apiVersion: datadog.upbound.io/v1alpha1
+kind: Dashboard
+metadata:
+  name: dashboard-name
+spec:
+  forProvider:
+    # The layout type of the dashboard. Valid values are: ordered, free
+    layoutType: ordered
+
+    # The title of the dashboard
+    title: "Dashboard Title"
+
+    widget:
+      - alertGraphDefinition:
+            # The ID of the monitor used by the widget
+          - alertId: "12345"
+            # Type of visualization to use when displaying the widget. Valid values are: timeseries, toplist
+            vizType: timeseries
+
+  providerConfigRef:
+    name: default
