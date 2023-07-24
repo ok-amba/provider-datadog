@@ -1,3 +1,6 @@
+# Terraform docs
+# https://registry.terraform.io/providers/DataDog/datadog/latest/docs/resources/role
+
 apiVersion: datadog.upbound.io/v1alpha1
 kind: Role
 metadata:
@@ -7,8 +10,8 @@ spec:
     #The name of the role within datadog
     name: role-name
 
-  #Set of objects containing the permission ID and the name of the permissions granted to this role
-    #To get permission ID's from datadog go here: https://docs.datadoghq.com/api/latest/roles/
+    # Set of objects containing the permission ID and the name of the permissions granted to this role
+    # To get permission ID's from datadog go here: https://docs.datadoghq.com/api/latest/roles/
     permission:
       - id: permissionId
       - id: anotherPermissionId
