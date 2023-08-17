@@ -13,7 +13,8 @@ spec:
 
     # The ID of a role to attach to all users with the corresponding key and value
     # The ID of the role can be found in the URI by going to the role in the Datadog UI.
-    role: Datadog-role-ID
+    role:
+      roleRef: role-name
 
     # Identity provider value
     # This is the ID of the group from your identity provider
