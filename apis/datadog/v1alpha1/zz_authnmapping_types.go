@@ -33,8 +33,17 @@ type AuthnMappingParameters struct {
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
 	// The ID of a role to attach to all users with the corresponding key and value.
+	// +crossplane:generate:reference:type=Role
 	// +kubebuilder:validation:Optional
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
+
+	// Reference to a Role to populate role.
+	// +kubebuilder:validation:Optional
+	RoleRef *v1.Reference `json:"roleRef,omitempty" tf:"-"`
+
+	// Selector for a Role to populate role.
+	// +kubebuilder:validation:Optional
+	RoleSelector *v1.Selector `json:"roleSelector,omitempty" tf:"-"`
 
 	// Identity provider value.
 	// +kubebuilder:validation:Optional
@@ -66,7 +75,6 @@ type AuthnMapping struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="self.managementPolicy == 'ObserveOnly' || has(self.forProvider.key)",message="key is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="self.managementPolicy == 'ObserveOnly' || has(self.forProvider.role)",message="role is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="self.managementPolicy == 'ObserveOnly' || has(self.forProvider.value)",message="value is a required parameter"
 	Spec   AuthnMappingSpec   `json:"spec"`
 	Status AuthnMappingStatus `json:"status,omitempty"`

@@ -8,7 +8,7 @@ func Configure(p *config.Provider) {
 		r.Kind = "AuthnMapping"
 		r.ShortGroup = ""
 
-		r.References["role.id"] = config.Reference{
+		r.References["role"] = config.Reference{
 			Type: "Role",
 		}
 	})
