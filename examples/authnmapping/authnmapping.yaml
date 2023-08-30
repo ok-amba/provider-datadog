@@ -11,9 +11,9 @@ spec:
     # The key is used by the identity provider to point to a specific resource, for example to point to an Azure AD group you would set this to http://schemas.microsoft.com/ws/2008/06/identity/claims/groups
     key: member-of
 
-    # The ID of a role to attach to all users with the corresponding key and value
-    # The ID of the role can be found in the URI by going to the role in the Datadog UI.
-    role: Datadog-role-ID
+    # The kubernetes object name of the desired role, which should be mapped to the authnmapping
+    roleRef:
+      name: role-name
 
     # Identity provider value
     # This is the ID of the group from your identity provider
