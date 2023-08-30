@@ -12,7 +12,8 @@ spec:
     key: member-of
 
     # The kubernetes object name of the desired role, which should be mapped to the authnmapping
-    roleRef: role-name
+    roleRef:
+      name: role-name
 
     # Identity provider value
     # This is the ID of the group from your identity provider
