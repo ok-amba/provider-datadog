@@ -20,6 +20,8 @@ img.build:
 	@cp Dockerfile $(IMAGE_TEMP_DIR) || $(FAIL)
 	@cp -R ../../../package $(IMAGE_TEMP_DIR) || $(FAIL)
 	@cd $(IMAGE_TEMP_DIR) && find package -type f -name '*.yaml' -exec cat {} >> 'package.yaml' \; -exec printf '\n---\n' \; || $(FAIL)
-	@docker build -t $(IMAGE) $(IMAGE_TEMP_DIR) || $(FAIL)
+	@docker buildx build --load \
+		--platform $(IMAGE_PLATFORMS) \
+		-t $(IMAGE) $(IMAGE_TEMP_DIR) || $(FAIL)
 	@docker tag $(IMAGE) "$(IMAGE):$(VERSION)" || $(FAIL)
 	@$(OK) Finished the docker build
